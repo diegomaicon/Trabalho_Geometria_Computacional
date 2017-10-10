@@ -1,4 +1,4 @@
-package Libs;
+package libs;
 /*
 * Árvore AVL podem ser empregadas na implementação de conjuntos, principalmente aqueles cujas chave não são números inteiros.
   A complexidade das principais operações de conjuntos usando árvore AVL:

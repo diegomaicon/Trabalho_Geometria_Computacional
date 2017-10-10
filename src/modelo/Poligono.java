@@ -3,7 +3,7 @@ package modelo;
 import java.util.ArrayList;
 
 public class Poligono {
-    
+
     private ArrayList<Ponto> pol;
 
     public Poligono(ArrayList<Ponto> pol) {
