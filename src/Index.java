@@ -1,6 +1,7 @@
 import modelo.Ponto;
 import modelo.SegmentoReta;
-import plot.graphic;
+import plot.GnuPlotComandos;
+import plot.Graphic;
 
 public class Index {
 
@@ -28,7 +29,15 @@ public class Index {
         Plano p = new Plano().init();
 
 
-        graphic s = new graphic();
+        GnuPlotComandos plotComandos = new GnuPlotComandos();
+
+        plotComandos.plotHeatMap(1024,600,1);
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Graphic().setVisible(true);
+            }
+        });
 
     }
 }
