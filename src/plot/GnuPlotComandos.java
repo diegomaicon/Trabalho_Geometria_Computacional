@@ -10,6 +10,7 @@ import java.io.PrintWriter;
     public class GnuPlotComandos {
 
         private static final int PONTO = 1;
+        private static final int DUASRETAS = 2;
 
 
         private static void exec(String[] comando) {
@@ -35,11 +36,13 @@ import java.io.PrintWriter;
                 System.out.println("plotando os pontos da medicao");
                 //"set terminal pngcairo transparent enhanced size "+LARGURA*1.326213592+", "+ALTURA*1.542857143+" \n" ,
                 String[] scriptPontos = {
-                        "set terminal pngcairo transparent size 1366, 819 \n" ,
+                        "set terminal pngcairo transparent size 800, 600 \n" ,
                         "set view map\n" ,
 
-                        "set dgrid2d 1000, 600,2\n" ,
+                        "set dgrid2d 600, 600, 2\n" ,
                         "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
                         "set xrange [-15:15]\n",
                         "set yrange [-15:15]\n" ,
                         "set grid \n",
@@ -48,6 +51,31 @@ import java.io.PrintWriter;
 
                         "plot \"dados-plot.txt\"  u 1:2 with lp lt 10 pt 6 lw 3 point  ps 1 t\"\""+"\n" ,
 
+                        "exit"
+
+                };
+                System.out.println("pronto");
+                GnuPlotComandos.exec(scriptPontos);
+                //plota pontos
+
+            } else if (FILTRO == DUASRETAS) {
+                System.out.println("plotando os pontos da medicao");
+                //"set terminal pngcairo transparent enhanced size "+LARGURA*1.326213592+", "+ALTURA*1.542857143+" \n" ,
+                String[] scriptPontos = {
+                        "set terminal pngcairo transparent size 800, 600 \n" ,
+                        "set view map\n" ,
+
+                        "set dgrid2d 600, 600, 2\n" ,
+                        "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
+                        "set xrange [-15:15]\n",
+                        "set yrange [-15:15]\n" ,
+                        "set grid \n",
+                        //  "set palette defined (0 0 0 0.5, 1 0 0 1, 2 0 0.5 1, 3 0 1 1, 4 0.5 1 0.5, 5 1 1 0, 6 1 0.5 0, 7 1 0 0, 8 0.5 0 0)",
+                        "set output 'plano.png'\n" ,
+
+                        "plot \"dados-plot.txt\"  u 1:2 with lp lt 10 pt 7 lw 1  ps 1 title \"Segmento de reta 1\",\"dados-plot.txt\"  u 3:4 with lp lt 4 pt 7 lw 1  ps 1 t\"Segmento de reta 2\""+"\n" ,
                         "exit"
 
                 };

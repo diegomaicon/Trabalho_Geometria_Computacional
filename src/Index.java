@@ -3,6 +3,7 @@ import modelo.Ponto;
 import modelo.SegmentoReta;
 import plot.GnuPlotComandos;
 import plot.Graphic;
+import plot.GravaArquivo;
 
 import java.util.ArrayList;
 
@@ -27,34 +28,48 @@ public class Index {
 
 
 
-
+        // Gera Segmento de Reta
         SegmentoReta sr1 = new SegmentoReta();
+        sr1.setpSR1(new Ponto(2,1));
+        sr1.setpSR2(new Ponto(2,6));
+        //GravaArquivo.GravaPontos(sr1);
 
-        sr1.setpSR1(new Ponto(1,2));
-        sr1.setpSR1(new Ponto(5,7));
-        Plano p = new Plano().init();
+        SegmentoReta sr2 = new SegmentoReta();
+        sr2.setpSR1(new Ponto(1,4));
+        sr2.setpSR2(new Ponto(3,4));
+        //GravaArquivo.GravaPontos(sr1);
 
+        GravaArquivo.GravaPontos(sr1,sr2);
+        Operacoes.intersecaoSegRetas(sr1,sr2);
+
+
+        //Gera Poligono
         Ponto p1 = new Ponto(1, 9);
         Ponto p2 = new Ponto(10, 5);
         Ponto p3 = new Ponto(12, 3);
         Ponto p4 = new Ponto(1, 1);
-        Ponto p5 = new Ponto(14, 1);
+        Ponto p5 = new Ponto(1, 9);
         Operacoes operacoes = new Operacoes();
-        ArrayList<Ponto> ConjuntoPontos = new ArrayList();
-        ConjuntoPontos.add(p1);
-        ConjuntoPontos.add(p2);
-        ConjuntoPontos.add(p3);
-        ConjuntoPontos.add(p4);
-        // ConjuntoPontos.add(p5);
-        System.out.println(operacoes.member(ConjuntoPontos, p5));
+        ArrayList<Ponto> conjuntoPontos = new ArrayList();
+        conjuntoPontos.add(p1);
+        conjuntoPontos.add(p2);
+        conjuntoPontos.add(p3);
+        conjuntoPontos.add(p4);
+        conjuntoPontos.add(p5);
+        System.out.println(operacoes.member(conjuntoPontos, p5));
 
+        //GravaArquivo.GravaPontos(conjuntoPontos);
 
 
 
 
         GnuPlotComandos plotComandos = new GnuPlotComandos();
 
-        plotComandos.plotHeatMap(1024,600,1);
+       // Duas retas
+        plotComandos.plotHeatMap(1024,600,2);
+
+        //Conjunto de Pontos
+        //plotComandos.plotHeatMap(1024,600,1);
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
