@@ -1,5 +1,7 @@
 package modelo;
 
+import libs.MergeSort;
+
 import java.util.ArrayList;
 
 /**
@@ -199,6 +201,28 @@ public class Operacoes {
             pontoIntersecao.setY((int) yp);
             System.out.println("Ponto in ["+pontoIntersecao.getX() +","+pontoIntersecao.getY() +"]");
         }
+
+    }
+
+    public double distancia(Ponto p1, Ponto p2){
+        return Math.sqrt(Math.pow(p1.getX()-p2.getX(),2) + Math.pow((p1.getY() - p2.getY()),2) );
+    }
+
+    /**
+     * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
+     * @param p
+     * @return
+     */
+    public Ponto[] retornaVetorPontoOrdenado(ArrayList<Ponto> p ){
+        Ponto[] v = new Ponto[p.size()];
+        int i=0;
+        for (Ponto tp: p) {
+            v[i] = tp;
+            i++;
+        }
+
+        MergeSort mS = new MergeSort();
+        return mS.sort(v, 0, v.length-1);
 
     }
 

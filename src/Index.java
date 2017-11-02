@@ -10,6 +10,16 @@ import java.util.ArrayList;
 public class Index {
 
 
+
+    /* A utility function to print array of size n */
+    static void printArray(Ponto arr[])
+    {
+        int n = arr.length;
+        for (int i=0; i<n; ++i)
+            System.out.print("["+arr[i].getX() + " "+arr[i].getY()+"]");
+        System.out.println();
+    }
+
     public static void main(String[] args) {
       /*  Avl s = new Avl();
 
@@ -60,7 +70,7 @@ public class Index {
 
         //GravaArquivo.GravaPontos(conjuntoPontos);
 
-
+        printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos));
 
 
         GnuPlotComandos plotComandos = new GnuPlotComandos();
