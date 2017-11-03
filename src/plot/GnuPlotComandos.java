@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 
         private static final int PONTO = 1;
         private static final int DUASRETAS = 2;
+        private static final int MENORPONTOS = 3;
 
 
         private static void exec(String[] comando) {
@@ -83,6 +84,29 @@ import java.io.PrintWriter;
                 GnuPlotComandos.exec(scriptPontos);
                 //plota pontos
 
+            } else if (FILTRO == MENORPONTOS) {
+                System.out.println("plotando os pontos da medicao");
+                //"set terminal pngcairo transparent enhanced size "+LARGURA*1.326213592+", "+ALTURA*1.542857143+" \n" ,
+                String[] scriptPontos = {
+                        "set terminal pngcairo transparent size 800, 600 \n",
+                        "set view map\n",
+
+                        "set dgrid2d 600, 600, 2\n",
+                        "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
+                        "set xrange [-15:15]\n",
+                        "set yrange [-15:15]\n",
+                        "set grid \n",
+                        //  "set palette defined (0 0 0 0.5, 1 0 0 1, 2 0 0.5 1, 3 0 1 1, 4 0.5 1 0.5, 5 1 1 0, 6 1 0.5 0, 7 1 0 0, 8 0.5 0 0)",
+                        "set output 'plano.png'\n",
+
+                        "plot \"dados-plot.txt\"  u 1:2 with p lt 10 pt 7   ps 1 title \"Pontos\",\"dados-plot.txt\"  u 3:4 with lp lt 4 pt 7 lw 1  ps 1 t\"Par mais Próximos\"" + "\n",
+                        "exit"
+
+                };
+                System.out.println("pronto");
+                GnuPlotComandos.exec(scriptPontos);
             }
         }
 

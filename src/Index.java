@@ -1,4 +1,5 @@
 import modelo.Operacoes;
+import modelo.Par;
 import modelo.Ponto;
 import modelo.SegmentoReta;
 import plot.GnuPlotComandos;
@@ -49,7 +50,7 @@ public class Index {
         sr2.setpSR2(new Ponto(3,4));
         //GravaArquivo.GravaPontos(sr1);
 
-        GravaArquivo.GravaPontos(sr1,sr2);
+        //GravaArquivo.GravaPontos(sr1,sr2);
         Operacoes.intersecaoSegRetas(sr1,sr2);
 
 
@@ -58,7 +59,8 @@ public class Index {
         Ponto p2 = new Ponto(10, 5);
         Ponto p3 = new Ponto(12, 3);
         Ponto p4 = new Ponto(1, 1);
-        Ponto p5 = new Ponto(1, 9);
+        Ponto p5 = new Ponto(8, 9);
+        Ponto p6 = new Ponto(1, 2);
         Operacoes operacoes = new Operacoes();
         ArrayList<Ponto> conjuntoPontos = new ArrayList();
         conjuntoPontos.add(p1);
@@ -66,17 +68,31 @@ public class Index {
         conjuntoPontos.add(p3);
         conjuntoPontos.add(p4);
         conjuntoPontos.add(p5);
+        conjuntoPontos.add(p6);
         System.out.println(operacoes.member(conjuntoPontos, p5));
 
-        //GravaArquivo.GravaPontos(conjuntoPontos);
+        GravaArquivo.GravaPontos(conjuntoPontos);
 
-        printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos));
+        printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos,'x'));
+        printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos,'y'));
 
+        Ponto[] pontos = new Ponto[conjuntoPontos.size()];
+        //----------------------------------------------------------------------
+        int i=0;
+        for (Ponto tp: conjuntoPontos) {
+            pontos[i] = tp;
+            i++;
+        }
 
+        Par par = new Par();
+        par = operacoes.parMaisProximo(pontos);
+        System.out.println("Menor distancia = " +par.toString());
+        GravaArquivo.GravaPontos(conjuntoPontos,par);
+        //---------------------------------------------------------------
         GnuPlotComandos plotComandos = new GnuPlotComandos();
 
        // Duas retas
-        plotComandos.plotHeatMap(1024,600,2);
+        plotComandos.plotHeatMap(1024,600,3);
 
         //Conjunto de Pontos
         //plotComandos.plotHeatMap(1024,600,1);

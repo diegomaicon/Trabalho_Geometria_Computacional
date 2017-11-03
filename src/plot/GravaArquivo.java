@@ -1,5 +1,6 @@
 package plot;
 
+import modelo.Par;
 import modelo.Ponto;
 import modelo.SegmentoReta;
 
@@ -26,7 +27,29 @@ public class GravaArquivo {
             e.printStackTrace();
         }
     }
+    public static void GravaPontos(ArrayList<Ponto> pontos, Par par) {
 
+        try {
+
+            FileWriter arq = new FileWriter("dados-plot.txt");
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.printf("x1\ty1\tx2\ty2\n");
+            int aux=0;
+            for (Ponto p:pontos) {
+                if (aux == 1){
+                    gravarArq.print(p.getX()+"\t"+p.getY()+"\t"+par.p1.getX()+"\t"+par.p1.getY()+"\n");
+                } if (aux == 2){
+                    gravarArq.print(p.getX()+"\t"+p.getY()+"\t"+par.p2.getX()+"\t"+par.p2.getY()+"\n");
+                } else{
+                    gravarArq.print(p.getX()+"\t"+p.getY()+"\n");
+                }
+                aux++;
+            }
+            arq.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void GravaPontos(SegmentoReta segmentoReta) {
 
         try {

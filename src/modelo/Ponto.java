@@ -30,26 +30,6 @@ public class Ponto {
         this.y = y;
     }
 
-    // classificar primeiro em x, então em y
-    public int compareTo(Ponto other)
-    {
-        if( x == other.x)
-            return y - other.y;
-        else
-            return x - other.x;
-    }
-
-    // // produto cruzado de dois vetores
-    public int cross( Ponto p)
-    {
-        return x * p.y - y * p.x;
-    }
-
-    //  subtração de dois pontos
-    public Ponto sub( Ponto p)
-    {
-        return new Ponto( x - p.x, y - p.y );
-    }
 
     public String toString()
     {
