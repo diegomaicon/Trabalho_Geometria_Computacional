@@ -183,6 +183,49 @@ public class Operacoes {
         return (float) (parte1 / parte2);
     }
 
+    /**
+     *   Predicado orientação 2D. (slides 29-31 do pdf auxiliar)
+     *
+     * @param reta
+     * @param ponto
+     */
+    public void predicadoOrientacao2D(SegmentoReta reta, Ponto ponto) { //MUDAR >>> VOID
+        int[][] matriz = new int[3][5];
+        matriz[0][0] = reta.getpSR1().getX();
+        matriz[0][1] = reta.getpSR2().getX();
+        matriz[0][2] = ponto.getX();
+        matriz[0][3] = reta.getpSR1().getX();
+        matriz[0][4] = reta.getpSR2().getX();
+
+        matriz[1][0] = reta.getpSR1().getY();
+        matriz[1][1] = reta.getpSR2().getY();
+        matriz[1][2] = ponto.getY();
+        matriz[1][3] = reta.getpSR1().getY();
+        matriz[1][4] = reta.getpSR2().getY();
+
+        matriz[2][0] = 1;
+        matriz[2][1] = 1;
+        matriz[2][2] = 1;
+        matriz[2][3] = 1;
+        matriz[2][4] = 1;
+
+        int soma1[] = {(matriz[0][0] * matriz[1][1] * matriz[2][2]), (matriz[0][1] * matriz[1][2] * matriz[2][3]), (matriz[0][2] * matriz[1][3] * matriz[2][4])};
+        int soma2[] = {(matriz[2][0] * matriz[1][1] * matriz[0][2]), (matriz[0][3] * matriz[1][2] * matriz[2][1]), (matriz[2][2] * matriz[1][3] * matriz[0][4])};
+        int resultado = (soma1[0]+soma1[1]+soma1[2]) - (soma2[0]+soma2[1]+soma2[2]);
+
+        System.out.println("resultado: "+resultado);
+
+        if (resultado == 0){
+            System.out.println("COLINEAR");
+        }
+        if (resultado>0){
+            System.out.println("Está a esquerda da reta");
+        }
+        else {
+            System.out.println("Está a direita da reta");
+        }
+    }
+
     public static void intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
         float[] eqGR1;
         float[] eqGR2;

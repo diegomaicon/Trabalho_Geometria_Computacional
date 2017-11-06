@@ -1,3 +1,4 @@
+import libs.AlgGraham;
 import modelo.Operacoes;
 import modelo.Par;
 import modelo.Ponto;
@@ -77,6 +78,8 @@ public class Index {
         printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos,'y'));
 
         Ponto[] pontos = new Ponto[conjuntoPontos.size()];
+
+        //Problema do par mais próximo
         //----------------------------------------------------------------------
         int i=0;
         for (Ponto tp: conjuntoPontos) {
@@ -89,6 +92,28 @@ public class Index {
         System.out.println("Menor distancia = " +par.toString());
         GravaArquivo.GravaPontos(conjuntoPontos,par);
         //---------------------------------------------------------------
+
+
+
+        //Problema do fecho convexo
+        ///-----------------------------------------------------------
+
+        AlgGraham algGraham = new AlgGraham();
+        ArrayList<Ponto> fechoConvexo = new ArrayList<Ponto>();
+         fechoConvexo  = algGraham.procuraFecho(conjuntoPontos);
+        System.out.println("The points in the Convex hull using Quick Hull are: ");
+        for (i = 0; i < fechoConvexo.size(); i++)
+            System.out.println("(" + fechoConvexo.get(i).getX() + ", " + fechoConvexo.get(i).getY() + ")");
+
+
+
+        //----------------------------------------
+
+
+
+
+
+
         GnuPlotComandos plotComandos = new GnuPlotComandos();
 
        // Duas retas
