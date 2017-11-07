@@ -12,6 +12,31 @@ import java.util.ArrayList;
 public class GravaArquivo {
 
 
+    public static void GravaPontos(ArrayList<Ponto> pontos,ArrayList<Ponto> fecho) {
+
+        try {
+
+            FileWriter arq = new FileWriter("dados-plot.txt");
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.printf("x1\ty1\tx2\ty2\n");
+            for (int i = 0; i < pontos.size() ; i++) {
+                if(i < fecho.size()) {
+                    gravarArq.print(pontos.get(i).getX() + "\t" + pontos.get(i).getY() + "\t" + fecho.get(i).getX() + "\t" + fecho.get(i).getY() + "\n");
+                }if(i == fecho.size()) {
+                    gravarArq.print(pontos.get(i).getX() + "\t" + pontos.get(i).getY() + "\t" + fecho.get(0).getX() + "\t" + fecho.get(0).getY() + "\n");
+                } else {
+                    gravarArq.print(pontos.get(i).getX()+"\t"+pontos.get(i).getY()+"\n");
+                }
+
+            }
+
+
+            arq.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void GravaPontos(ArrayList<Ponto> pontos) {
 
         try {
@@ -77,7 +102,6 @@ public class GravaArquivo {
             gravarArq.printf("x1\ty1\tx2\ty2\n");
 
             gravarArq.print(seg1.getpSR1().getX()+"\t"+seg1.getpSR1().getY()+"\t");
-
             gravarArq.print(seg2.getpSR1().getX()+"\t"+seg2.getpSR1().getY()+"\n");
 
             gravarArq.print(seg1.getpSR2().getX()+"\t"+seg1.getpSR2().getY()+"\t");

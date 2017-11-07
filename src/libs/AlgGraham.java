@@ -2,6 +2,7 @@ package libs;
 
 import modelo.Ponto;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +39,7 @@ public class AlgGraham {
                 maxPonto = i;
             }
         }
+
 
         Ponto A = pontos.get(minPonto);
         Ponto B = pontos.get(maxPonto);
