@@ -122,7 +122,6 @@ import java.io.PrintWriter;
                         "set xrange [-15:15]\n",
                         "set yrange [-15:15]\n",
                         "set grid \n",
-                        //  "set palette defined (0 0 0 0.5, 1 0 0 1, 2 0 0.5 1, 3 0 1 1, 4 0.5 1 0.5, 5 1 1 0, 6 1 0.5 0, 7 1 0 0, 8 0.5 0 0)",
                         "set output 'plano.png'\n",
 
                         "plot \"dados-plot.txt\"  u 1:2 with p lt 10 pt 7   ps 1 title \"Pontos\",\"dados-plot.txt\"  u 3:4 with lp lt 4 pt 7 lw 1  ps 1 t\"Fecho Convexo\"" + "\n",

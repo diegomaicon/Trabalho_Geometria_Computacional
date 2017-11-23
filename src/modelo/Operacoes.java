@@ -226,7 +226,7 @@ public class Operacoes {
         }
     }
 
-    public static void intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
+    public  void intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
         float[] eqGR1;
         float[] eqGR2;
         eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
@@ -407,5 +407,87 @@ public class Operacoes {
         }
         return parMaisProximo;
     }
-//############################################################################################################
+    //############################################################################################################
+    public void predicadoQualLadoCirculo(Ponto ponto, Ponto[] pontosCirculo){
+
+        int det1 = calculaDet3x3(pontosCirculo[0].getX(), pontosCirculo[0].getY(), 1, pontosCirculo[1].getX(), pontosCirculo[1].getY(), 1, pontosCirculo[2].getX(), pontosCirculo[2].getY(), 1);
+        int det2 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getY(), 1, (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getY(), 1, (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getY(), 1 );
+        int det3 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getX(), 1, (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getX(), 1, (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getX(), 1);
+        int det4 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getX(), pontosCirculo[0].getY(), (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getX(), pontosCirculo[1].getY(), (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getX(), pontosCirculo[2].getY());
+
+        double determinante = 0;
+
+        if (((ponto.getX()*ponto.getX()) + (ponto.getY()*ponto.getY())) != 0){
+            determinante = (Math.pow((-1), 2)) * ((ponto.getX()*ponto.getX()) + (ponto.getY()*ponto.getY())) * det1 ;
+        }
+        if (ponto.getX()!= 0){
+            determinante = determinante +  ((Math.pow(-1,3)) * (ponto.getX()) *det2);
+        }
+        if (ponto.getY()!= 0){
+            determinante = determinante + ((Math.pow(-1,4))* ponto.getY() * det3);
+        }
+        determinante = determinante + ((Math.pow(-1,5))*1*det4);
+        int determinante2 = calculaDet3x3(pontosCirculo[0].getX(), pontosCirculo[0].getY(), 1, pontosCirculo[1].getX(), pontosCirculo[1].getY(), 1, pontosCirculo[2].getX(), pontosCirculo[2].getY(), 1);
+
+        double resultado = determinante * determinante2;
+
+        System.out.println("Resultado: "+resultado);
+        if (resultado > 0){
+            System.out.println("Ponto fora do circulo");
+        }else if (resultado == 0){
+            System.out.println("O ponto está na borda do círculo");
+        }else{
+            System.out.println("O ponto está dentro do circulo");
+        }
+
+    }
+
+    int calculaDet3x3 (int a, int b, int c, int d, int e, int f, int g, int h, int i){
+        int dir = ((a * e * i) + (b * f * g) + (c * d * h));
+        int esq = ((c * e * g) + (a * f * h) + (b * d * i));
+        return dir-esq;
+    }
+
+
+    public void predicadoPontoDentroPoligono(Ponto ponto, ArrayList<Ponto> poligono){
+        int cruzamentos = 0 ;
+        Ponto p1, p2;
+        int x1, x2, y1, y2;
+
+        p1 = poligono.get(0);
+
+        //Para cada segmento do poligono faça..
+        for (int i = 1 ; i < poligono.size() ; i++){
+            //p1 = poligono.get(i);
+            p2= poligono.get(i);
+
+
+            x1 = p1.getX() - ponto.getX();
+            y1 = p1.getY() - ponto.getY();
+            x2 = p2.getX() - ponto.getX();
+            y2 = p2.getY() - ponto.getY();
+
+            float xInter;
+            if ((y1 > 0) && (y2 <= 0) || (y2 > 0) && (y1 <= 0)) {
+                xInter = ((x1 * y2) - (x2 * y1));
+                xInter = xInter / (y2 - y1);
+                if (xInter > 0.0) {
+                    cruzamentos++;
+                }
+            }
+
+            p1 = p2;
+
+        }
+        System.out.println("quantidade cruzamentos: "+cruzamentos);
+        if ((cruzamentos % 2) == 1) {
+            System.out.println("O ponto está dentro do poligono");
+        }
+        else{
+            System.out.println("O ponto NÃO está dentro do poligono");
+        }
+
+    }
+
+
 }
