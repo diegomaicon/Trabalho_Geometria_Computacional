@@ -1,3 +1,4 @@
+import jdk.nashorn.internal.scripts.JO;
 import libs.AlgGraham;
 import modelo.Operacoes;
 import modelo.Par;
@@ -112,7 +113,37 @@ public class Index {
                                                         operacoes.distanciaPontoReta(p2,sR2));
 
                         break;
-                //Interceção de reta
+
+                //Área de um círculo
+                case 3:
+                       JOptionPane.showMessageDialog(null ,"Área do Círculo: " +
+                               operacoes.areaCirculo(Integer.parseInt(JOptionPane.showInputDialog(null,"Informe o Raio"))) + " cm2");
+                break;
+
+
+
+                //predicado Orientacao 2D
+                case 6:
+
+
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' - 'x2,y2' - 'x3,y3'"), ",- ");
+                    } while (st2.countTokens() != 6);
+
+                    ArrayList<Ponto> pts = new ArrayList<Ponto>();
+                    pts.add(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    pts.add(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    pts.add(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    JOptionPane.showMessageDialog(null,""+operacoes.predicadoOrientacao2D(pts.get(0),pts.get(1),pts.get(2)));
+
+                    GravaArquivo.GravaPontos(pts);
+                    plotComandos.plotHeatMap(1024,600,6);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
+
+                    break;
+
+                    //Interceção de reta
                 case 9:
                     // Gera Segmento de Reta
                     SegmentoReta sr1 = new SegmentoReta();

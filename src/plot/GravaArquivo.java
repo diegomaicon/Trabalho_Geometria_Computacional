@@ -52,6 +52,7 @@ public class GravaArquivo {
             e.printStackTrace();
         }
     }
+
     public static void GravaPontos(ArrayList<Ponto> pontos, Par par) {
 
         try {

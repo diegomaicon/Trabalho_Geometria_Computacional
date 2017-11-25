@@ -182,24 +182,26 @@ public class Operacoes {
     }
 
     /**
-     *   Predicado orientação 2D. (slides 29-31 do pdf auxiliar)
+     * Predicado orientação 2D. (slides 29-31 do pdf auxiliar)
      *
-     * @param reta
-     * @param ponto
+     * @param ponto1
+     * @param ponto2
+     * @param ponto3
+     * @return
      */
-    public void predicadoOrientacao2D(SegmentoReta reta, Ponto ponto) { //MUDAR >>> VOID
+    public String predicadoOrientacao2D(Ponto ponto1, Ponto ponto2,Ponto ponto3) { //MUDAR >>> VOID
         int[][] matriz = new int[3][5];
-        matriz[0][0] = reta.getpSR1().getX();
-        matriz[0][1] = reta.getpSR2().getX();
-        matriz[0][2] = ponto.getX();
-        matriz[0][3] = reta.getpSR1().getX();
-        matriz[0][4] = reta.getpSR2().getX();
+        matriz[0][0] = ponto1.getX();
+        matriz[0][1] = ponto2.getX();
+        matriz[0][2] = ponto3.getX();
+        matriz[0][3] = ponto1.getX();
+        matriz[0][4] = ponto2.getX();
 
-        matriz[1][0] = reta.getpSR1().getY();
-        matriz[1][1] = reta.getpSR2().getY();
-        matriz[1][2] = ponto.getY();
-        matriz[1][3] = reta.getpSR1().getY();
-        matriz[1][4] = reta.getpSR2().getY();
+        matriz[1][0] = ponto1.getY();
+        matriz[1][1] = ponto2.getY();
+        matriz[1][2] = ponto3.getY();
+        matriz[1][3] = ponto1.getY();
+        matriz[1][4] = ponto2.getY();
 
         matriz[2][0] = 1;
         matriz[2][1] = 1;
@@ -211,16 +213,12 @@ public class Operacoes {
         int soma2[] = {(matriz[2][0] * matriz[1][1] * matriz[0][2]), (matriz[0][3] * matriz[1][2] * matriz[2][1]), (matriz[2][2] * matriz[1][3] * matriz[0][4])};
         int resultado = (soma1[0]+soma1[1]+soma1[2]) - (soma2[0]+soma2[1]+soma2[2]);
 
-        System.out.println("resultado: "+resultado);
-
         if (resultado == 0){
-            System.out.println("COLINEAR");
-        }
-        if (resultado>0){
-            System.out.println("Está a esquerda da reta");
-        }
-        else {
-            System.out.println("Está a direita da reta");
+            return  resultado + " COLINEAR";
+        } else if (resultado>0){
+            return resultado + " Está a ESQQUERDA da reta";
+        } else {
+            return resultado + " Está a DIREITA da reta";
         }
     }
 
