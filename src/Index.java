@@ -1,4 +1,3 @@
-import jdk.nashorn.internal.scripts.JO;
 import libs.AlgGraham;
 import modelo.Operacoes;
 import modelo.Par;
@@ -68,18 +67,19 @@ public class Index {
             op = JOptionPane.showInputDialog(null," Digite a opção:\n" +
                     " [ 1 ]   Calcular a distância entre dois pontos.\n" +
                     " [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
-                    " [ 3 ]   Calcular a área de uma círculo.\n" +
-                    " [ 4 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
-                    " [ 5 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
-                    " [ 6 ]   Predicado orientação 2D. (slides 29-31 do pdf auxiliar).\n" +
-                    " [ 7 ]   Predicado qual lado do círculo. (slides 32-33 do pdf auxiliar).\n" +
-                    " [ 8 ]   Encontrar ponto mais próximo de um segmento de reta. (slide 35 do pdf auxiliar).\n" +
-                    " [ 9 ]   Determinar a interseção de segmentos de reta. (slide 37-44 do pdf auxiliar) \n"+
-                    " [ 10 ]   Predicado ponto dentro do polígono. (slides 46-47 do pdf auxiliar).\n\n" +
+                    " [ 3 ]   Calcular a área de um polígono. \n" +
+                    " [ 4 ]   Calcular a área de uma círculo.\n" +
+                    " [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
+                    " [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
+                    " [ 7 ]   Predicado orientação 2D. (slides 29-31 do pdf auxiliar).\n" +
+                    " [ 8 ]   Predicado qual lado do círculo. (slides 32-33 do pdf auxiliar).\n" +
+                    " [ 9 ]   Encontrar ponto mais próximo de um segmento de reta. (slide 35 do pdf auxiliar).\n" +
+                    " [ 10 ]   Determinar a interseção de segmentos de reta. (slide 37-44 do pdf auxiliar) \n"+
+                    " [ 11 ]  Predicado ponto dentro do polígono. (slides 46-47 do pdf auxiliar).\n\n" +
 
-                    " [ 11 ]  Problema do par mais próximo.\n" +
-                    " [ 12 ]  Problema do fecho convexo.\n" +
-                    " [ 13 ]  Diagrama de Voronoi.\n\n" +
+                    " [ 12 ]  Problema do par mais próximo.\n" +
+                    " [ 13 ]  Problema do fecho convexo.\n" +
+                    " [ 14 ]  Diagrama de Voronoi.\n\n" +
 
                     " [ -1 ]  Fecha Gráfico.\n\n" +
                     " [ 0 ]   SAIR \n");
@@ -100,12 +100,12 @@ public class Index {
                         Ponto p2 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
                         do {
                             st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' - 'x2,y2'"), ",- ");
-                        } while (st2.countTokens() != 4);
+                        } while (st2.countTokens() == 4);
                         SegmentoReta sR2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
                                 new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
 
                         GravaArquivo.GravaPontos(sR2,p2);
-                        plotComandos.plotHeatMap(1024,600,5);
+                        plotComandos.plot(5);
                         grafico = new Graphic();
                         grafico.setVisible(true);
 
@@ -114,21 +114,30 @@ public class Index {
 
                         break;
 
-                //Área de um círculo
+                //Área de um poligono
                 case 3:
+                    break;
+
+                //Área de um círculo
+                case 4:
                        JOptionPane.showMessageDialog(null ,"Área do Círculo: " +
                                operacoes.areaCirculo(Integer.parseInt(JOptionPane.showInputDialog(null,"Informe o Raio"))) + " cm2");
                 break;
 
+                //Predicado convexidade de um polígono.
+                case 5:
+                    break;
 
+                //Dobrar polígonos em triângulos até um único triângulo..
+                case 6:
+                    break;
 
                 //predicado Orientacao 2D
-                case 6:
-
+                case 7:
 
                     do {
                         st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' - 'x2,y2' - 'x3,y3'"), ",- ");
-                    } while (st2.countTokens() != 6);
+                    } while (st2.countTokens() == 6);
 
                     ArrayList<Ponto> pts = new ArrayList<Ponto>();
                     pts.add(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
@@ -137,35 +146,84 @@ public class Index {
                     JOptionPane.showMessageDialog(null,""+operacoes.predicadoOrientacao2D(pts.get(0),pts.get(1),pts.get(2)));
 
                     GravaArquivo.GravaPontos(pts);
-                    plotComandos.plotHeatMap(1024,600,6);
+                    plotComandos.plot(6);
                     grafico = new Graphic();
                     grafico.setVisible(true);
+                    pts.clear();
+
+                    break;
+                // Predicado qual lado do círculo.
+                case 8:
+                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
+                        Ponto p7 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
+
+                        do {
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' - 'x2,y2' - 'x3,y3'"), ",- ");
+                        } while (st2.countTokens() == 6);
+
+                        Ponto[] pts7 = new Ponto[3];
+                        pts7[0] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+                        pts7[1] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+                        pts7[2] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+
+                        JOptionPane.showMessageDialog(null,operacoes.predicadoQualLadoCirculo(p7,pts7));
+
+
+                        break;
+                //Interceção de reta
+                case 10:
+                        // Gera Segmento de Reta
+                        do {
+                            st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' - 'x2,y2'"), ",- ");
+                        } while (st1.countTokens() == 4);
+                        SegmentoReta sr9_1 = new SegmentoReta(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())),
+                                new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())));
+
+                        do {
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 2 'x1,y1' - 'x2,y2'"), ",- ");
+                        } while (st2.countTokens() == 4);
+
+                        SegmentoReta sr9_2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
+                                new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+
+                        JOptionPane.showMessageDialog(null,""+operacoes.intersecaoSegRetas(sr9_1,sr9_2));
+
+                        GravaArquivo.GravaPontos(sr9_1,sr9_2);
+
+                        // Duas retas
+                        plotComandos.plot(2);
+                        grafico = new Graphic();
+                        grafico.setVisible(true);
 
                     break;
 
-                    //Interceção de reta
-                case 9:
-                    // Gera Segmento de Reta
-                    SegmentoReta sr1 = new SegmentoReta();
-                    sr1.setpSR1(new Ponto(2,1));
-                    sr1.setpSR2(new Ponto(2,6));
+               // Predicado ponto dentro do polígono.
+                case 11:
+                    st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
+                    Ponto p10 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
 
-                    SegmentoReta sr2 = new SegmentoReta();
-                    sr2.setpSR1(new Ponto(1,4));
-                    sr2.setpSR2(new Ponto(3,4));
+                    conjuntoPontos = carregaPontos();
 
-                    JOptionPane.showMessageDialog(null,""+operacoes.intersecaoSegRetas(sr1,sr2));
+                    JOptionPane.showMessageDialog(null,""+ operacoes.predicadoPontoDentroPoligono(p10,conjuntoPontos));
 
-                    GravaArquivo.GravaPontos(sr1,sr2);
+                    GravaArquivo.GravaPontos(conjuntoPontos,p10);
 
-                    // Duas retas
-                    plotComandos.plotHeatMap(1024,600,2);
+                    // poligono e ponto
+                    plotComandos.plot(7);
                     grafico = new Graphic();
                     grafico.setVisible(true);
+
+
+
+                    conjuntoPontos.clear();
                     break;
+
+
+
+
 
                 //Problema do par mais próximo.
-                case 11:
+                case 12:
 
                     conjuntoPontos = carregaPontos();
                     ArrayList<Ponto> fechoConvexo  = algGraham.procuraFecho((ArrayList<Ponto>) conjuntoPontos.clone());
@@ -174,7 +232,7 @@ public class Index {
                         System.out.print("(" + fechoConvexo.get(i).getX() + ", " + fechoConvexo.get(i).getY() + ")");
 
                     GravaArquivo.GravaPontos(conjuntoPontos,fechoConvexo);
-                    plotComandos.plotHeatMap(1024,600,4);
+                    plotComandos.plot(4);
 
                     grafico = new Graphic();
                     grafico.setVisible(true);
@@ -183,7 +241,7 @@ public class Index {
                 break;
 
                 //Menor distancia entre dois pontos
-                case 12:
+                case 13:
 
                     conjuntoPontos = carregaPontos();
                     Ponto[] pontos = new Ponto[conjuntoPontos.size()];
@@ -196,8 +254,7 @@ public class Index {
                     Par par = operacoes.parMaisProximo(pontos);
                     System.out.println("Menor distancia = "+ par.toString());
                     GravaArquivo.GravaPontos(conjuntoPontos,par);
-                    plotComandos.plotHeatMap(1024,600,3);
-
+                    plotComandos.plot(3);
                     grafico = new Graphic();
                     grafico.setVisible(true);
 
@@ -239,8 +296,6 @@ public class Index {
         sr1.setpSR1(new Ponto(2,1));
         sr1.setpSR2(new Ponto(2,6));
         //GravaArquivo.GravaPontos(sr1);
-
-
 
 
         //Gera Poligono

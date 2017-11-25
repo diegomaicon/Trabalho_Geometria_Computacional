@@ -410,8 +410,16 @@ public class Operacoes {
         }
         return parMaisProximo;
     }
-    //############################################################################################################
-    public void predicadoQualLadoCirculo(Ponto ponto, Ponto[] pontosCirculo){
+
+    /**
+     * O Predicado em qual Lado do Círculo
+     *
+     * @param ponto
+     * @param pontosCirculo
+     * @return
+     */
+
+    public String predicadoQualLadoCirculo(Ponto ponto, Ponto[] pontosCirculo){
 
         int det1 = calculaDet3x3(pontosCirculo[0].getX(), pontosCirculo[0].getY(), 1, pontosCirculo[1].getX(), pontosCirculo[1].getY(), 1, pontosCirculo[2].getX(), pontosCirculo[2].getY(), 1);
         int det2 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getY(), 1, (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getY(), 1, (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getY(), 1 );
@@ -434,13 +442,12 @@ public class Operacoes {
 
         double resultado = determinante * determinante2;
 
-        System.out.println("Resultado: "+resultado);
         if (resultado > 0){
-            System.out.println("Ponto fora do circulo");
+            return resultado + "Ponto FORA do círculo";
         }else if (resultado == 0){
-            System.out.println("O ponto está na borda do círculo");
+            return resultado + "O ponto está na BORDA do círculo";
         }else{
-            System.out.println("O ponto está dentro do circulo");
+            return resultado + "O ponto está DENTRO do círculo";
         }
 
     }
@@ -451,8 +458,14 @@ public class Operacoes {
         return dir-esq;
     }
 
-
-    public void predicadoPontoDentroPoligono(Ponto ponto, ArrayList<Ponto> poligono){
+    /**
+     *   Predicado ponto dentro do polígono.
+     *
+     * @param ponto
+     * @param poligono
+     * @return
+     */
+    public String predicadoPontoDentroPoligono(Ponto ponto, ArrayList<Ponto> poligono){
         int cruzamentos = 0 ;
         Ponto p1, p2;
         int x1, x2, y1, y2;
@@ -484,10 +497,10 @@ public class Operacoes {
         }
         System.out.println("quantidade cruzamentos: "+cruzamentos);
         if ((cruzamentos % 2) == 1) {
-            System.out.println("O ponto está dentro do poligono");
+            return "Quantidade cruzamentos: " +cruzamentos+ "\nO ponto está dentro do poligono";
         }
         else{
-            System.out.println("O ponto NÃO está dentro do poligono");
+            return "Quantidade cruzamentos: " +cruzamentos+ "\nO ponto NÃO está dentro do poligono";
         }
 
     }

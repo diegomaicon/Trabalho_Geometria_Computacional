@@ -110,6 +110,30 @@ public class GravaArquivo {
         }
     }
 
+    public static void GravaPontos(ArrayList<Ponto> pontos,Ponto ponto) {
+
+        try {
+
+            FileWriter arq = new FileWriter("dados-plot.txt");
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.printf("x1\ty1\tx2\ty2\n");
+            int i = 0;
+            for (Ponto p : pontos) {
+                if (i == 0) {
+                    gravarArq.print(p.getX() + "\t" + p.getY() + "\t" + ponto.getX() + "\t" + ponto.getY() + "\n");
+                } else{
+                    gravarArq.print(p.getX()+"\t"+p.getY()+"\n");
+                }
+                i++;
+            }
+
+            int t = pontos.size();
+            gravarArq.print(pontos.get(0).getX()+"\t"+pontos.get(0).getY()+"\n");
+            arq.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void GravaPontos(SegmentoReta seg1,SegmentoReta seg2) {
 
         try {

@@ -15,6 +15,7 @@ import java.io.PrintWriter;
         private static final int FECHOCONVEXO = 4;
         private static final int PONTOERETA = 5;
         private static final int PREDICADO2D = 6;
+        private static final int POLIGONOPONTO = 7;
 
         private static void exec(String[] comando) {
             try {
@@ -33,7 +34,7 @@ import java.io.PrintWriter;
                 System.out.println(x.getMessage());
             }
         }
-        public static void plotHeatMap(int LARGURA, int ALTURA, int FILTRO) {
+        public static void plot(int FILTRO) {
 
             if (FILTRO == PONTO) {
                // System.out.println("plotando os pontos da medicao");
@@ -157,11 +158,30 @@ import java.io.PrintWriter;
                 };
 
                 GnuPlotComandos.exec(scriptPontos);
+            }else if (FILTRO == POLIGONOPONTO) {
+                String[] scriptPontos = {
+                        "set terminal pngcairo transparent size 800, 600 \n",
+                        "set view map\n",
+
+                        "set dgrid2d 600, 600, 2\n",
+                        "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
+                        "set xrange [-15:15]\n",
+                        "set yrange [-15:15]\n",
+                        "set grid \n",
+                        "set output 'plano.png'\n",
+
+                        "plot \"dados-plot.txt\"  u 1:2 with lp lt 10 pt 7  lw 1  ps 1 title \"Polígono\",\"dados-plot.txt\"  u 3:4 with p lt 4 pt 7   ps 1 t\"Ponto\"" + "\n",
+                        "exit"
+                };
+
+                GnuPlotComandos.exec(scriptPontos);
             }
         }
 
         public static void plotPontosMedicao(int LARGURA, int ALTURA) {
-            plotHeatMap(LARGURA, ALTURA, PONTO);
+            plot(PONTO);
         }
 
 
