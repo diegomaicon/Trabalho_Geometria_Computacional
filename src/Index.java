@@ -65,21 +65,21 @@ public class Index {
 
         do {
             op = JOptionPane.showInputDialog(null," Digite a opção:\n" +
-                    " [ 1 ]   Calcular a distância entre dois pontos.\n" +
-                    " [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
-                    " [ 3 ]   Calcular a área de um polígono. \n" +
-                    " [ 4 ]   Calcular a área de uma círculo.\n" +
-                    " [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
-                    " [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
-                    " [ 7 ]   Predicado orientação 2D. (slides 29-31 do pdf auxiliar).\n" +
-                    " [ 8 ]   Predicado qual lado do círculo. (slides 32-33 do pdf auxiliar).\n" +
-                    " [ 9 ]   Encontrar ponto mais próximo de um segmento de reta. (slide 35 do pdf auxiliar).\n" +
-                    " [ 10 ]   Determinar a interseção de segmentos de reta. (slide 37-44 do pdf auxiliar) \n"+
-                    " [ 11 ]  Predicado ponto dentro do polígono. (slides 46-47 do pdf auxiliar).\n\n" +
+                    " ok [ 1 ]   Calcular a distância entre dois pontos.\n" +
+                    " ok [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
+                    " ok [ 3 ]   Calcular a área de um polígono. \n" +
+                    " ok [ 4 ]   Calcular a área de uma círculo.\n" +
+                    " --- [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
+                    " --- [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
+                    " ok [ 7 ]   Predicado orientação 2D. (slides 29-31 do pdf auxiliar).\n" +
+                    " ok [ 8 ]   Predicado qual lado do círculo. (slides 32-33 do pdf auxiliar).\n" +
+                    " --- [ 9 ]   Encontrar ponto mais próximo de um segmento de reta. (slide 35 do pdf auxiliar).\n" +
+                    " ok [ 10 ]   Determinar a interseção de segmentos de reta. (slide 37-44 do pdf auxiliar) \n"+
+                    " ok [ 11 ]  Predicado ponto dentro do polígono. (slides 46-47 do pdf auxiliar).\n\n" +
 
-                    " [ 12 ]  Problema do par mais próximo.\n" +
-                    " [ 13 ]  Problema do fecho convexo.\n" +
-                    " [ 14 ]  Diagrama de Voronoi.\n\n" +
+                    " ok [ 12 ]  Problema do par mais próximo.\n" +
+                    " ok [ 13 ]  Problema do fecho convexo.\n" +
+                    " --- [ 14 ]  Diagrama de Voronoi.\n\n" +
 
                     " [ -1 ]  Fecha Gráfico.\n\n" +
                     " [ 0 ]   SAIR \n");
@@ -218,10 +218,6 @@ public class Index {
                     conjuntoPontos.clear();
                     break;
 
-
-
-
-
                 //Problema do par mais próximo.
                 case 12:
 
@@ -259,8 +255,6 @@ public class Index {
                     grafico.setVisible(true);
 
                     conjuntoPontos.clear();
-
-
                     break;
                 case -1:
                     grafico.dispose();
@@ -291,12 +285,6 @@ public class Index {
 
         Index.start();
 
-        // Gera Segmento de Reta
-        SegmentoReta sr1 = new SegmentoReta();
-        sr1.setpSR1(new Ponto(2,1));
-        sr1.setpSR2(new Ponto(2,6));
-        //GravaArquivo.GravaPontos(sr1);
-
 
         //Gera Poligono
         Ponto p1 = new Ponto(1, 9);
@@ -323,44 +311,9 @@ public class Index {
         conjuntoPontos.add(p10);
         System.out.println(operacoes.member(conjuntoPontos, p5));
 
-        GravaArquivo.GravaPontos(conjuntoPontos);
 
         printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos,'x'));
         printArray(operacoes.retornaVetorPontoOrdenado(conjuntoPontos,'y'));
-
-        Ponto[] pontos = new Ponto[conjuntoPontos.size()];
-
-        //Problema do par mais próximo
-        //----------------------------------------------------------------------
-
-        // Menor distancia entre dois pontos
-        //plotComandos.plotHeatMap(1024,600,3);
-        //---------------------------------------------------------------
-
-
-
-        //Problema do fecho convexo
-        ///-----------------------------------------------------------
-
-
-
-        //----------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Conjunto de Pontos
-        //plotComandos.plotHeatMap(1024,600,1);
 
 
         System.out.close();
