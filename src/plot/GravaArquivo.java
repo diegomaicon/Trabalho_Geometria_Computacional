@@ -92,6 +92,22 @@ public class GravaArquivo {
         }
     }
 
+    public static void GravaPontos(SegmentoReta segmentoReta,Ponto ponto) {
+
+        try {
+
+            FileWriter arq = new FileWriter("dados-plot.txt");
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.printf("x1\ty1\tx2\ty2\n");
+
+            gravarArq.print(segmentoReta.getpSR1().getX()+"\t"+segmentoReta.getpSR1().getY()+"\t"+ponto.getX()+"\t"+ponto.getY()+"\n");
+            gravarArq.print(segmentoReta.getpSR2().getX()+"\t"+segmentoReta.getpSR2().getY()+"\n");
+
+            arq.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void GravaPontos(SegmentoReta seg1,SegmentoReta seg2) {
 

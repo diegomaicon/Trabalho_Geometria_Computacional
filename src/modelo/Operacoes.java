@@ -10,15 +10,6 @@ import java.util.ArrayList;
 public class Operacoes {
 
 
-    public double distanciaDoisPontos(Ponto p1, Ponto p2) {
-        int x, y;
-        x = p1.getX() - p2.getX();
-        y = p1.getY() - p2.getY();
-        x = x * x;
-        y = y * y;
-        return (float) Math.sqrt(x + y);
-    }
-
     public double areaCirculo(int raio) {
         return Math.PI * (raio * raio);
     }
@@ -173,6 +164,13 @@ public class Operacoes {
         return result;
     }
 
+    /**
+     * Calcula a Distancia netre um ponto e uma REta
+     *
+     * @param ponto
+     * @param reta
+     * @return
+     */
     public float distanciaPontoReta(Ponto ponto, SegmentoReta reta) {
         float[] resultEquacao = new float[3];
         resultEquacao = calculoEquacaoGeralReta(reta.getpSR1(), reta.getpSR2());
@@ -226,14 +224,21 @@ public class Operacoes {
         }
     }
 
-    public  void intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
+    /**
+     *  Verifica se exixte uma interseção entre duas Retas
+     * @param reta1
+     * @param reta2
+     * @return
+     */
+    public  String intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
+
         float[] eqGR1;
         float[] eqGR2;
         eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
         eqGR2 = calculoEquacaoGeralReta(reta2.getpSR1(), reta2.getpSR2());
         float parteB = ((eqGR1[0] * eqGR2[1]) - (eqGR2[0] * eqGR1[1]));
         if (parteB == 0) {
-            System.out.println("As retas são paralelas");
+            return "As retas são paralelas";
         } else {
             float xp = ((eqGR2[2] * eqGR1[1]) - (eqGR1[2] * eqGR2[1]));
             xp = xp / parteB;
@@ -242,7 +247,7 @@ public class Operacoes {
             Ponto pontoIntersecao = new Ponto();
             pontoIntersecao.setX((int) xp);
             pontoIntersecao.setY((int) yp);
-            System.out.println("Ponto in [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]");
+            return "Interseção no  [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]";
         }
 
     }

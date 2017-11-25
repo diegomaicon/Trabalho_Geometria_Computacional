@@ -9,6 +9,7 @@ import plot.GravaArquivo;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Index {
 
@@ -59,6 +60,7 @@ public class Index {
        AlgGraham algGraham = new AlgGraham();
        Graphic grafico = null;
        Operacoes operacoes = new Operacoes();
+       StringTokenizer st1,st2;
 
 
         do {
@@ -82,9 +84,36 @@ public class Index {
                     " [ 0 ]   SAIR \n");
 
             switch (Integer.parseInt(op)) {
+                //Distância entre dois pontos
+                case 1:
+                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe ponto 1  'x,y'"),",");
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe ponto 2  'x,y'"),",");
+                        Double d = Par.distancia(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())) ,
+                                      new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                        JOptionPane.showMessageDialog(null,"A Distancia entre P1 e P2 é : "+ d);
 
+                    break;
+                //Distância entre ponte e segmento de Reta
+                case 2:
+                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
+                        Ponto p2 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
+                        do {
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' - 'x2,y2'"), ",- ");
+                        } while (st2.countTokens() != 4);
+                        SegmentoReta sR2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
+                                new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+
+                        GravaArquivo.GravaPontos(sR2,p2);
+                        plotComandos.plotHeatMap(1024,600,5);
+                        grafico = new Graphic();
+                        grafico.setVisible(true);
+
+                        JOptionPane.showMessageDialog(null,"Distancia entre Ponto e Segmento de Reta é: " +
+                                                        operacoes.distanciaPontoReta(p2,sR2));
+
+                        break;
+                //Interceção de reta
                 case 9:
-
                     // Gera Segmento de Reta
                     SegmentoReta sr1 = new SegmentoReta();
                     sr1.setpSR1(new Ponto(2,1));
@@ -94,7 +123,7 @@ public class Index {
                     sr2.setpSR1(new Ponto(1,4));
                     sr2.setpSR2(new Ponto(3,4));
 
-                    operacoes.intersecaoSegRetas(sr1,sr2);
+                    JOptionPane.showMessageDialog(null,""+operacoes.intersecaoSegRetas(sr1,sr2));
 
                     GravaArquivo.GravaPontos(sr1,sr2);
 
@@ -102,9 +131,7 @@ public class Index {
                     plotComandos.plotHeatMap(1024,600,2);
                     grafico = new Graphic();
                     grafico.setVisible(true);
-
                     break;
-
 
                 //Problema do par mais próximo.
                 case 11:
