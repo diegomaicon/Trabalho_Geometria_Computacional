@@ -16,12 +16,12 @@ public class Index {
 
 
     /* A utility function to print array of size n */
-       private static void printArray(Ponto arr[]) {
-            int n = arr.length;
-            for (int i=0; i<n; ++i)
-                System.out.print("["+arr[i].getX() + " "+arr[i].getY()+"]");
-            System.out.println();
-        }
+    private static void printArray(Ponto arr[]) {
+        int n = arr.length;
+        for (int i=0; i<n; ++i)
+            System.out.print("["+arr[i].getX() + " "+arr[i].getY()+"]");
+        System.out.println();
+    }
 
     private static ArrayList<Ponto> carregaPontos(){
      /*   Ponto p4 = new Ponto(1, 1);
@@ -36,12 +36,12 @@ public class Index {
         Ponto p10 = new Ponto(1, 0);
         */
 
-        Ponto p1 = new Ponto(1,1);
-        Ponto p2 = new Ponto(1,4);
-        Ponto p3 = new Ponto(4,4);
-        Ponto p4 = new Ponto(2,3);
-        Ponto p5 = new Ponto(2,2);
-        Ponto p6 = new Ponto(4,1);
+        Ponto p1 = new Ponto(-3,-2);
+        Ponto p2 = new Ponto(-1,4);
+        Ponto p3 = new Ponto(6,1);
+        Ponto p4 = new Ponto(3,10);
+        Ponto p5 = new Ponto(-4,9);
+       // Ponto p6 = new Ponto(4,1);
 
         ArrayList<Ponto> conjuntoPontos = new ArrayList();
         conjuntoPontos.add(p1);
@@ -49,30 +49,30 @@ public class Index {
         conjuntoPontos.add(p3);
         conjuntoPontos.add(p4);
         conjuntoPontos.add(p5);
-      conjuntoPontos.add(p6);
-      /*     conjuntoPontos.add(p7);
+      /*conjuntoPontos.add(p6);
+        conjuntoPontos.add(p7);
         conjuntoPontos.add(p8);
         conjuntoPontos.add(p9);
         conjuntoPontos.add(p10);*/
 
-         return conjuntoPontos;
+        return conjuntoPontos;
     }
 
     private static void start(){
-       String op = "100";
-       GnuPlotComandos plotComandos = new GnuPlotComandos();
-       ArrayList<Ponto> conjuntoPontos = null;
-       AlgGraham algGraham = new AlgGraham();
-       Graphic grafico = null;
-       Operacoes operacoes = new Operacoes();
-       StringTokenizer st1,st2;
+        String op = "100";
+        GnuPlotComandos plotComandos = new GnuPlotComandos();
+        ArrayList<Ponto> conjuntoPontos = null;
+        AlgGraham algGraham = new AlgGraham();
+        Graphic grafico = null;
+        Operacoes operacoes = new Operacoes();
+        StringTokenizer st1,st2;
 
 
         do {
             op = JOptionPane.showInputDialog(null," Digite a opção:\n" +
                     " ok [ 1 ]   Calcular a distância entre dois pontos.\n" +
                     " ok [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
-                    " -- [ 3 ]   Calcular a área de um polígono. \n" +
+                    " ok [ 3 ]   Calcular a área de um polígono. \n" +
                     " ok [ 4 ]   Calcular a área de uma círculo.\n" +
                     " ok [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
                     " --- [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
@@ -98,45 +98,56 @@ public class Index {
                     do {
                         st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe ponto 2  'x,y'"), ",");
                     }while (st1.countTokens() != 2);
-                        Double d = Par.distancia(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())) ,
-                                      new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
-                        JOptionPane.showMessageDialog(null,"A Distancia entre P1 e P2 é : "+ d);
+                    Double d = Par.distancia(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())) ,
+                            new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    JOptionPane.showMessageDialog(null,"A Distancia entre P1 e P2 é : "+ d);
 
                     break;
                 //Distância entre ponte e segmento de Reta
                 case 2:
-                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
-                        Ponto p2 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
-                        do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' : 'x2,y2'"), ",: ");
-                        } while (st2.countTokens() != 4);
-                        SegmentoReta sR2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
-                                new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
+                    Ponto p2 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' : 'x2,y2'"), ",: ");
+                    } while (st2.countTokens() != 4);
+                    SegmentoReta sR2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
+                            new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
 
-                        GravaArquivo.GravaPontos(sR2,p2);
-                        plotComandos.plot(5);
-                        grafico = new Graphic();
-                        grafico.setVisible(true);
+                    GravaArquivo.GravaPontos(sR2,p2);
+                    plotComandos.plot(5);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
 
-                        JOptionPane.showMessageDialog(null,"Distancia entre Ponto e Segmento de Reta é: " +
-                                                        operacoes.distanciaPontoReta(p2,sR2));
+                    JOptionPane.showMessageDialog(null,"Distancia entre Ponto e Segmento de Reta é: " +
+                            operacoes.distanciaPontoReta(p2,sR2));
 
-                        break;
+                    break;
 
                 //Área de um poligono
                 case 3:
+                    conjuntoPontos = carregaPontos();
+                    if (conjuntoPontos.size()>=3){
+                        JOptionPane.showMessageDialog(null, "Área do polígono: " + operacoes.areaPoligono(new Poligono(conjuntoPontos)) + " cm2");
+
+                        GravaArquivo.GravaPontos(conjuntoPontos,true);
+                        plotComandos.plot(9);
+                        grafico = new Graphic();
+                        grafico.setVisible(true);
+
+                        conjuntoPontos.clear();
+                    }
                     break;
 
                 //Área de um círculo
                 case 4:
-                       JOptionPane.showMessageDialog(null ,"Área do Círculo: " +
-                               operacoes.areaCirculo(Integer.parseInt(JOptionPane.showInputDialog(null,"Informe o Raio"))) + " cm2");
-                break;
+                    JOptionPane.showMessageDialog(null ,"Área do Círculo: " +
+                            operacoes.areaCirculo(Integer.parseInt(JOptionPane.showInputDialog(null,"Informe o Raio"))) + " cm2");
+                    break;
 
                 //Predicado convexidade de um polígono.
                 case 5:
-
-                    Poligono p = new Poligono(carregaPontos());
+                    conjuntoPontos=carregaPontos();
+                    Poligono p = new Poligono(conjuntoPontos);
                     if(operacoes.poligonoConvexo(p)){
                         JOptionPane.showMessageDialog(null,"Pologono Convexo");
                         GravaArquivo.GravaPontos(p.getPol(),true);
@@ -177,20 +188,20 @@ public class Index {
                     break;
                 // Predicado qual lado do círculo.
                 case 8:
-                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
-                        Ponto p7 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
+                    st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
+                    Ponto p7 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
 
-                        do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' : 'x2,y2' : 'x3,y3'"), ",: ");
-                        } while (st2.countTokens() != 6);
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' : 'x2,y2' : 'x3,y3'"), ",: ");
+                    } while (st2.countTokens() != 6);
 
-                        Ponto[] pts7 = new Ponto[3];
-                        pts7[0] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
-                        pts7[1] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
-                        pts7[2] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+                    Ponto[] pts7 = new Ponto[3];
+                    pts7[0] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+                    pts7[1] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
+                    pts7[2] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
 
-                        JOptionPane.showMessageDialog(null,operacoes.predicadoQualLadoCirculo(p7,pts7));
-                        break;
+                    JOptionPane.showMessageDialog(null,operacoes.predicadoQualLadoCirculo(p7,pts7));
+                    break;
 
                 case 9:
                     do {
@@ -204,8 +215,8 @@ public class Index {
                     Ponto p9 = operacoes.pontoMaisProximoReta(conjuntoPontos,sR9);
 
                     JOptionPane.showMessageDialog(null,"O ponto mais proximo da reta é: ("+
-                                                                p9.getX()+","+p9.getY()+") com a distância: "+
-                                                               operacoes.distanciaPontoReta(p9,sR9));
+                            p9.getX()+","+p9.getY()+") com a distância: "+
+                            operacoes.distanciaPontoReta(p9,sR9));
                     GravaArquivo.GravaPontos(conjuntoPontos,p9,sR9);
                     plotComandos.plot(8);
                     grafico = new Graphic();
@@ -216,32 +227,32 @@ public class Index {
 
                 //Interceção de reta
                 case 10:
-                        // Gera Segmento de Reta
-                        do {
-                            st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' : 'x2,y2'"), ",: ");
-                        } while (st1.countTokens() == 4);
-                        SegmentoReta sr9_1 = new SegmentoReta(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())),
-                                new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())));
+                    // Gera Segmento de Reta
+                    do {
+                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' : 'x2,y2'"), ",: ");
+                    } while (st1.countTokens() == 4);
+                    SegmentoReta sr9_1 = new SegmentoReta(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())),
+                            new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())));
 
-                        do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 2 'x1,y1' : 'x2,y2'"), ",: ");
-                        } while (st2.countTokens() != 4);
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 2 'x1,y1' : 'x2,y2'"), ",: ");
+                    } while (st2.countTokens() != 4);
 
-                        SegmentoReta sr9_2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
-                                new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    SegmentoReta sr9_2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
+                            new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
 
-                        JOptionPane.showMessageDialog(null,""+operacoes.intersecaoSegRetas(sr9_1,sr9_2));
+                    JOptionPane.showMessageDialog(null,""+operacoes.intersecaoSegRetas(sr9_1,sr9_2));
 
-                        GravaArquivo.GravaPontos(sr9_1,sr9_2);
+                    GravaArquivo.GravaPontos(sr9_1,sr9_2);
 
-                        // Duas retas
-                        plotComandos.plot(2);
-                        grafico = new Graphic();
-                        grafico.setVisible(true);
+                    // Duas retas
+                    plotComandos.plot(2);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
 
                     break;
 
-               // Predicado ponto dentro do polígono.
+                // Predicado ponto dentro do polígono.
                 case 11:
                     st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
                     Ponto p10 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
@@ -278,7 +289,7 @@ public class Index {
                     grafico.setVisible(true);
 
                     conjuntoPontos.clear();
-                break;
+                    break;
 
                 //Menor distancia entre dois pontos
                 case 13:
@@ -302,7 +313,7 @@ public class Index {
                     break;
                 case -1:
                     grafico.dispose();
-                break;
+                    break;
 
             }
 

@@ -317,6 +317,8 @@ public class Operacoes {
     /**
      * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
      *
+     *  Complexidade O(n log n)
+     *
      * @param p
      * @return
      */
@@ -341,7 +343,7 @@ public class Operacoes {
 
     /**
      * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
-     *
+     * Complexidade O(n log n)
      * @param v
      * @return
      */
@@ -399,9 +401,11 @@ public class Operacoes {
     }
 
     /**
+     *
      * Problema do par mais próximo
-     *  Adaptação do Algoritmo de Shamos-Hoey
-     * Algoritmo precisa apenas de Em)espaço e é executado no O (nlog-n)tempo.
+     * Adaptação do Algoritmo de Shamos-Hoey
+     * Algoritmo  Complexidade O(nlog-n) tempo.
+     *
      * @param pontosSortedByX
      * @param pontosSortedByY
      * @return
@@ -522,6 +526,8 @@ public class Operacoes {
     /**
      *   Predicado ponto dentro do polígono.
      *
+     *   Complexidade O(n)
+     *
      * @param ponto
      * @param poligono
      * @return
@@ -569,6 +575,8 @@ public class Operacoes {
     /**
      * Verifica se um Poligono pe convexo
      *
+     *   Complexidade O(n)
+     *
      * @param poligono
      * @return
      */
@@ -594,6 +602,32 @@ public class Operacoes {
         }
 
         return true;
+    }
+
+    /**
+     *  Algoritimo que Calcula área de um poligono
+     *
+     *   Complexidade n+n = O(n)
+     *
+     * @param pL
+     * @return
+     */
+    public double areaPoligono(Poligono pL ){
+        int v1=0,v2=0;
+        Ponto aux = pL.getPol().get(0);
+        ArrayList<Ponto> list = pL.getPol();
+        list.add(aux);
+
+        //Multiplique a coordenada x de cada vértice pela coordenada y de cada vértice.
+        for (int i = 0; i < list.size()-1 ; i++) {
+            v1 += list.get(i).getX() * list.get(i+1).getY();
+        }
+
+        //Multiplique a coordenada y de cada vértice pela coordenada x do vértice
+        for (int i = 0; i < list.size()-1 ; i++) {
+            v2 += list.get(i+1).getX() * list.get(i).getY();
+        }
+        return (v1-v2)/2;
     }
 
 
