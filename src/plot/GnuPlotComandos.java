@@ -16,6 +16,7 @@ import java.io.PrintWriter;
         private static final int PONTOERETA = 5;
         private static final int PREDICADO2D = 6;
         private static final int POLIGONOPONTO = 7;
+        private static final int PONTOS_PONTO_RETA = 8;
 
         private static void exec(String[] comando) {
             try {
@@ -173,6 +174,25 @@ import java.io.PrintWriter;
                         "set output 'plano.png'\n",
 
                         "plot \"dados-plot.txt\"  u 1:2 with lp lt 10 pt 7  lw 1  ps 1 title \"Polígono\",\"dados-plot.txt\"  u 3:4 with p lt 4 pt 7   ps 1 t\"Ponto\"" + "\n",
+                        "exit"
+                };
+
+                GnuPlotComandos.exec(scriptPontos);
+            }else if (FILTRO == PONTOS_PONTO_RETA) {
+                String[] scriptPontos = {
+                        "set terminal pngcairo transparent size 800, 600 \n",
+                        "set view map\n",
+
+                        "set dgrid2d 600, 600, 2\n",
+                        "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
+                        "set xrange [-15:15]\n",
+                        "set yrange [-15:15]\n",
+                        "set grid \n",
+                        "set output 'plano.png'\n",
+
+                        "plot \"dados-plot.txt\"  u 1:2 with p lt 10 pt 7 ps 1 title \"Pontos\",\"dados-plot.txt\"  u 3:4 with lp lt 12 pt 2 ps 2 title \"Segmento de Reta\",\"dados-plot.txt\"  u 5:6 with p lt 12 pt 2 ps 2 t\"Ponto mais Proximo\"" + "\n",
                         "exit"
                 };
 

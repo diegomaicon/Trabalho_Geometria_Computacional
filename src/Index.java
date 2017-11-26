@@ -67,7 +67,7 @@ public class Index {
             op = JOptionPane.showInputDialog(null," Digite a opção:\n" +
                     " ok [ 1 ]   Calcular a distância entre dois pontos.\n" +
                     " ok [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
-                    " ok [ 3 ]   Calcular a área de um polígono. \n" +
+                    " --- [ 3 ]   Calcular a área de um polígono. \n" +
                     " ok [ 4 ]   Calcular a área de uma círculo.\n" +
                     " --- [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
                     " --- [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
@@ -99,8 +99,8 @@ public class Index {
                         st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe Ponto   'x,y'"),",");
                         Ponto p2 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
                         do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' - 'x2,y2'"), ",- ");
-                        } while (st2.countTokens() == 4);
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' : 'x2,y2'"), ",: ");
+                        } while (st2.countTokens() != 4);
                         SegmentoReta sR2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
                                 new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
 
@@ -136,8 +136,8 @@ public class Index {
                 case 7:
 
                     do {
-                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' - 'x2,y2' - 'x3,y3'"), ",- ");
-                    } while (st2.countTokens() == 6);
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' : 'x2,y2' : 'x3,y3'"), ",: ");
+                    } while (st2.countTokens() != 6);
 
                     ArrayList<Ponto> pts = new ArrayList<Ponto>();
                     pts.add(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
@@ -158,8 +158,8 @@ public class Index {
                         Ponto p7 = new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken()));
 
                         do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' - 'x2,y2' - 'x3,y3'"), ",- ");
-                        } while (st2.countTokens() == 6);
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os três pontos 'x1,y1' : 'x2,y2' : 'x3,y3'"), ",: ");
+                        } while (st2.countTokens() != 6);
 
                         Ponto[] pts7 = new Ponto[3];
                         pts7[0] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
@@ -167,21 +167,42 @@ public class Index {
                         pts7[2] = new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken()));
 
                         JOptionPane.showMessageDialog(null,operacoes.predicadoQualLadoCirculo(p7,pts7));
-
-
                         break;
+
+                case 9:
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 'x1,y1' : 'x2,y2'"), ",: ");
+                    } while (st2.countTokens() != 4);
+
+                    SegmentoReta sR9 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
+                            new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
+                    conjuntoPontos = carregaPontos();
+
+                    Ponto p9 = operacoes.pontoMaisProximoReta(conjuntoPontos,sR9);
+
+                    JOptionPane.showMessageDialog(null,"O ponto mais proximo da reta é: ("+
+                                                                p9.getX()+","+p9.getY()+") com a distância: "+
+                                                               operacoes.distanciaPontoReta(p9,sR9));
+                    GravaArquivo.GravaPontos(conjuntoPontos,p9,sR9);
+                    plotComandos.plot(8);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
+                    conjuntoPontos.clear();
+
+                    break;
+
                 //Interceção de reta
                 case 10:
                         // Gera Segmento de Reta
                         do {
-                            st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' - 'x2,y2'"), ",- ");
+                            st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' : 'x2,y2'"), ",: ");
                         } while (st1.countTokens() == 4);
                         SegmentoReta sr9_1 = new SegmentoReta(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())),
                                 new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())));
 
                         do {
-                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 2 'x1,y1' - 'x2,y2'"), ",- ");
-                        } while (st2.countTokens() == 4);
+                            st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 2 'x1,y1' : 'x2,y2'"), ",: ");
+                        } while (st2.countTokens() != 4);
 
                         SegmentoReta sr9_2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())),
                                 new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));

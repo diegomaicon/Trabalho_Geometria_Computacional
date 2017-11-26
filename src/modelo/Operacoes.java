@@ -5,7 +5,7 @@ import libs.MergeSort;
 import java.util.ArrayList;
 
 /**
- * Created by Debora on 17/10/2017.
+ * Created by Debora and Diego on 17/10/2017.
  */
 public class Operacoes {
 
@@ -172,13 +172,41 @@ public class Operacoes {
      * @return
      */
     public float distanciaPontoReta(Ponto ponto, SegmentoReta reta) {
-        float[] resultEquacao = new float[3];
+        float[] resultEquacao;
         resultEquacao = calculoEquacaoGeralReta(reta.getpSR1(), reta.getpSR2());
         float parte1 = (resultEquacao[0] * ponto.getX()) + (resultEquacao[1] * ponto.getY()) + (resultEquacao[2]);
         parte1 = Math.abs(parte1);
+        System.out.println("P1 :"+parte1);
         double parte2 = ((resultEquacao[0] * resultEquacao[0]) + (resultEquacao[1] * resultEquacao[1]));
         parte2 = Math.sqrt(parte2);
+        System.out.println("P2 :"+parte2);
         return (float) (parte1 / parte2);
+    }
+
+
+    /**  Algoritimo de Força Bruta.
+     *
+     *      Procura entre todos os pontos o pronto mais proximo do segmento de reta.
+     *
+     * @param pontos
+     * @param reta
+     * @return
+     */
+    public  Ponto pontoMaisProximoReta(ArrayList<Ponto> pontos, SegmentoReta reta){
+
+        float menorDistancia = Float.MAX_VALUE,aux;
+        Ponto mPonto = null;
+
+        for (Ponto p :pontos) {
+            aux = distanciaPontoReta(p,reta);
+            System.out.println(p.getX()+","+p.getY()+"-> Distancia: "+aux);
+            if (aux>0)
+                if(aux < menorDistancia){
+                    menorDistancia = aux;
+                    mPonto = p;
+                }
+        }
+        return mPonto;
     }
 
     /**
@@ -295,8 +323,6 @@ public class Operacoes {
         return v;
     }
 
-
-//############################################################################################################
     /**
      * Divide o VEtor de Pontos em dois e Ordena por X e por Y;
      *
@@ -305,8 +331,7 @@ public class Operacoes {
      */
 
     public static Par parMaisProximo(Ponto[] pontos) {
-        Ponto[] pX = new Ponto[pontos.length];
-        Ponto[] pY = new Ponto[pontos.length];
+        Ponto[] pX,pY;
         pX = retornaVetorPontoOrdenado(pontos, 'x');
         pY = retornaVetorPontoOrdenado(pontos, 'y');
         return parMaisProximo(pX, pY);
