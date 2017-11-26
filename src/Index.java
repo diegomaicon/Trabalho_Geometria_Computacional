@@ -1,8 +1,5 @@
 import libs.AlgGraham;
-import modelo.Operacoes;
-import modelo.Par;
-import modelo.Ponto;
-import modelo.SegmentoReta;
+import modelo.*;
 import plot.GnuPlotComandos;
 import plot.Graphic;
 import plot.GravaArquivo;
@@ -27,28 +24,36 @@ public class Index {
         }
 
     private static ArrayList<Ponto> carregaPontos(){
-
+     /*   Ponto p4 = new Ponto(1, 1);
         Ponto p1 = new Ponto(1, 9);
         Ponto p2 = new Ponto(10, 5);
         Ponto p3 = new Ponto(12, 3);
-        Ponto p4 = new Ponto(1, 1);
         Ponto p5 = new Ponto(8, 9);
         Ponto p6 = new Ponto(2, 3);
         Ponto p7 = new Ponto(1, 2);
         Ponto p8 = new Ponto(4, 1);
         Ponto p9 = new Ponto(5, 5);
         Ponto p10 = new Ponto(1, 0);
+        */
+
+        Ponto p1 = new Ponto(1,1);
+        Ponto p2 = new Ponto(1,4);
+        Ponto p3 = new Ponto(4,4);
+        Ponto p4 = new Ponto(2,3);
+        Ponto p5 = new Ponto(2,2);
+        Ponto p6 = new Ponto(4,1);
+
         ArrayList<Ponto> conjuntoPontos = new ArrayList();
         conjuntoPontos.add(p1);
         conjuntoPontos.add(p2);
         conjuntoPontos.add(p3);
         conjuntoPontos.add(p4);
         conjuntoPontos.add(p5);
-        conjuntoPontos.add(p6);
-        conjuntoPontos.add(p7);
+      conjuntoPontos.add(p6);
+      /*     conjuntoPontos.add(p7);
         conjuntoPontos.add(p8);
         conjuntoPontos.add(p9);
-        conjuntoPontos.add(p10);
+        conjuntoPontos.add(p10);*/
 
          return conjuntoPontos;
     }
@@ -67,9 +72,9 @@ public class Index {
             op = JOptionPane.showInputDialog(null," Digite a opção:\n" +
                     " ok [ 1 ]   Calcular a distância entre dois pontos.\n" +
                     " ok [ 2 ]   Calcular a distância entre um ponto e uma reta.\n" +
-                    " --- [ 3 ]   Calcular a área de um polígono. \n" +
+                    " -- [ 3 ]   Calcular a área de um polígono. \n" +
                     " ok [ 4 ]   Calcular a área de uma círculo.\n" +
-                    " --- [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
+                    " ok [ 5 ]   Predicado convexidade de um polígono. (slide 27-28 do pdf auxiliar).\n" +
                     " --- [ 6 ]   Dobrar polígonos em triângulos até um único triângulo. (slide 25 do pdf auxiliar).\n" +
                     " ok [ 7 ]   Predicado orientação 2D. (slides 29-31 do pdf auxiliar).\n" +
                     " ok [ 8 ]   Predicado qual lado do círculo. (slides 32-33 do pdf auxiliar).\n" +
@@ -87,8 +92,12 @@ public class Index {
             switch (Integer.parseInt(op)) {
                 //Distância entre dois pontos
                 case 1:
-                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe ponto 1  'x,y'"),",");
-                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null,"Informe ponto 2  'x,y'"),",");
+                    do {
+                        st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe ponto 1  'x,y'"), ",");
+                    }while (st1.countTokens() != 2);
+                    do {
+                        st2 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe ponto 2  'x,y'"), ",");
+                    }while (st1.countTokens() != 2);
                         Double d = Par.distancia(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())) ,
                                       new Ponto(Integer.parseInt(st2.nextToken()),Integer.parseInt(st2.nextToken())));
                         JOptionPane.showMessageDialog(null,"A Distancia entre P1 e P2 é : "+ d);
@@ -126,8 +135,22 @@ public class Index {
 
                 //Predicado convexidade de um polígono.
                 case 5:
-                    break;
 
+                    Poligono p = new Poligono(carregaPontos());
+                    if(operacoes.poligonoConvexo(p)){
+                        JOptionPane.showMessageDialog(null,"Pologono Convexo");
+                        GravaArquivo.GravaPontos(p.getPol(),true);
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Pologono NÃO Convexo");
+                        GravaArquivo.GravaPontos(p.getPol(),true);
+                    }
+
+                    plotComandos.plot(9);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
+
+                    conjuntoPontos.clear();
+                    break;
                 //Dobrar polígonos em triângulos até um único triângulo..
                 case 6:
                     break;

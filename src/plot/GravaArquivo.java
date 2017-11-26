@@ -37,6 +37,7 @@ public class GravaArquivo {
         }
     }
 
+
     public static void GravaPontos(ArrayList<Ponto> pontos) {
 
         try {
@@ -47,9 +48,29 @@ public class GravaArquivo {
             for (Ponto p:pontos) {
                 gravarArq.print(p.getX()+"\t"+p.getY()+"\n");
             }
+
             arq.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void GravaPontos(ArrayList<Ponto> pontos,boolean fecho) {
+        if (fecho){
+            try {
+
+                FileWriter arq = new FileWriter("dados-plot.txt");
+                PrintWriter gravarArq = new PrintWriter(arq);
+                gravarArq.printf("x\ty\n");
+                for (Ponto p:pontos) {
+                    gravarArq.print(p.getX()+"\t"+p.getY()+"\n");
+                }
+                int t = pontos.size();
+                gravarArq.print(pontos.get(0).getX()+"\t"+pontos.get(0).getY()+"\n");
+                arq.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

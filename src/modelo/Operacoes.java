@@ -4,6 +4,8 @@ import libs.MergeSort;
 
 import java.util.ArrayList;
 
+import static com.ibm.jsse2.util.h.c;
+
 /**
  * Created by Debora and Diego on 17/10/2017.
  */
@@ -165,6 +167,34 @@ public class Operacoes {
     }
 
     /**
+     *  o cálculo dos coeficientes, pesquise, em um livro de
+     *  matemática (geometria analítica) como determinar a equação geral
+     *  da reta a partir de dois pontos
+     *
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
+    private static double[] calculoEquacaoGeralReta2(Ponto p1, Ponto p2){
+        double[] cofs = new double[3];
+
+        cofs[0] = p1.getY() - p2.getY();
+        cofs[1] = p2.getX() - p1.getX() ;
+        cofs[2] = p1.getX() * p2.getY() - p2.getX() * p1.getY();
+
+        return cofs;
+    }
+
+    private Ponto maisProximo(EquacaoReta e,Ponto p){
+        double den = e.getA()*e.getA() + e.getB()*e.getB();
+        Double x = (e.getB()*(e.getB()*p.getX() - e.getA()*p.getY()) - e.getA()*e.getC())/den;
+        Double y = (e.getA()*(-e.getB()*p.getX() + e.getA()*p.getY()) - e.getB()*e.getC())/den;
+
+        return new Ponto((int) Math.abs(x), (int) Math.abs(y));
+    }
+
+    /**
      * Calcula a Distancia netre um ponto e uma REta
      *
      * @param ponto
@@ -172,15 +202,21 @@ public class Operacoes {
      * @return
      */
     public float distanciaPontoReta(Ponto ponto, SegmentoReta reta) {
-        float[] resultEquacao;
-        resultEquacao = calculoEquacaoGeralReta(reta.getpSR1(), reta.getpSR2());
-        float parte1 = (resultEquacao[0] * ponto.getX()) + (resultEquacao[1] * ponto.getY()) + (resultEquacao[2]);
+        double[] resultEquacao;
+        resultEquacao = calculoEquacaoGeralReta2(reta.getpSR1(), reta.getpSR2());
+        EquacaoReta equacaoReta = new EquacaoReta(resultEquacao[0],resultEquacao[1],resultEquacao[2]);
+
+        double parte1 = (equacaoReta.getA() * ponto.getX()) + (equacaoReta.getB() * ponto.getY()) + (equacaoReta.getC());
         parte1 = Math.abs(parte1);
         System.out.println("P1 :"+parte1);
-        double parte2 = ((resultEquacao[0] * resultEquacao[0]) + (resultEquacao[1] * resultEquacao[1]));
+        double parte2 = ((equacaoReta.getA() * equacaoReta.getA()) + (equacaoReta.getB() * equacaoReta.getB()));
+
         parte2 = Math.sqrt(parte2);
         System.out.println("P2 :"+parte2);
-        return (float) (parte1 / parte2);
+
+        if (parte1 == 0){
+            return Float.MAX_VALUE;
+        } else  return (float) (parte1 / parte2);
     }
 
 
@@ -201,7 +237,7 @@ public class Operacoes {
             aux = distanciaPontoReta(p,reta);
             System.out.println(p.getX()+","+p.getY()+"-> Distancia: "+aux);
             if (aux>0)
-                if(aux < menorDistancia){
+                if(aux <= menorDistancia){
                     menorDistancia = aux;
                     mPonto = p;
                 }
@@ -528,6 +564,36 @@ public class Operacoes {
             return "Quantidade cruzamentos: " +cruzamentos+ "\nO ponto NÃO está dentro do poligono";
         }
 
+    }
+
+    /**
+     * Verifica se um Poligono pe convexo
+     *
+     * @param poligono
+     * @return
+     */
+    public boolean poligonoConvexo(Poligono poligono){
+        if (poligono.getPol().size()< 4){
+            return true;
+        }
+        boolean sign = false;
+        int n = poligono.getPol().size();
+        for(int i=0; i<n; i++)
+        {
+            double dx1 = poligono.getPol().get((i+2)%n).getX() - poligono.getPol().get((i+1)%n).getX();
+            double dy1 = poligono.getPol().get((i+2)%n).getY() - poligono.getPol().get((i+1)%n).getY();
+
+            double dx2 = poligono.getPol().get(i).getX() - poligono.getPol().get((i+1)%n).getX();
+            double dy2 = poligono.getPol().get(i).getY() - poligono.getPol().get((i+1)%n).getY();
+
+            double produtocruzado = dx1*dy2 - dy1*dx2;
+            if (i == 0)
+                sign = produtocruzado > 0;
+            else if (sign != (produtocruzado > 0))
+                return false;
+        }
+
+        return true;
     }
 
 
