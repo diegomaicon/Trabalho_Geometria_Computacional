@@ -86,6 +86,8 @@ public class Index {
                     " ok [ 13 ]  Problema do fecho convexo.\n" +
                     " --- [ 14 ]  Diagrama de Voronoi.\n\n" +
 
+                    " ----- Estratégias de Projeto de Algoritmos.\n" +
+                    " ok [ 15 ]  Guloso - Problema do Troco.\n\n" +
                     " [ -1 ]  Fecha Gráfico.\n\n" +
                     " [ 0 ]   SAIR \n");
 
@@ -310,6 +312,21 @@ public class Index {
                     grafico.setVisible(true);
 
                     conjuntoPontos.clear();
+                    break;
+
+                case 15:
+                    int[] moedas = EstrategiasPA.gulosoProblemaTroco(Float.parseFloat(JOptionPane.showInputDialog(null,"Informe o Valor Troco  0.00")));
+                    int cont=0;
+                    for (int i = 0; i < moedas.length ; i++) {
+                        cont += moedas[i];
+                    }
+
+                    JOptionPane.showMessageDialog(null,"Quantidade de moeda: "+ cont+
+                                                    "\n$0,50: "+moedas[0]+"\n"+
+                                                      "$0,25: "+moedas[1]+"\n"+
+                                                      "$0,10: "+moedas[2]+"\n"+
+                                                      "$0,05: "+moedas[3]+"\n"+
+                                                      "$0,01: "+moedas[4]+"\n");
                     break;
                 case -1:
                     grafico.dispose();

@@ -208,15 +208,13 @@ public class Operacoes {
 
         double parte1 = (equacaoReta.getA() * ponto.getX()) + (equacaoReta.getB() * ponto.getY()) + (equacaoReta.getC());
         parte1 = Math.abs(parte1);
-        System.out.println("P1 :"+parte1);
+        //System.out.println("P1 :"+parte1);
         double parte2 = ((equacaoReta.getA() * equacaoReta.getA()) + (equacaoReta.getB() * equacaoReta.getB()));
 
         parte2 = Math.sqrt(parte2);
-        System.out.println("P2 :"+parte2);
+       // System.out.println("P2 :"+parte2);
 
-        if (parte1 == 0){
-            return Float.MAX_VALUE;
-        } else  return (float) (parte1 / parte2);
+         return (float) (parte1 / parte2);
     }
 
 
