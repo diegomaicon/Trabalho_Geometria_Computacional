@@ -87,7 +87,8 @@ public class Index {
                     " --- [ 14 ]  Diagrama de Voronoi.\n\n" +
 
                     " ----- Estratégias de Projeto de Algoritmos.\n" +
-                    " ok [ 15 ]  Guloso - Problema do Troco.\n\n" +
+                    " ok [ 15 ]  Guloso - Problema do Troco.\n" +
+                    " ok [ 16 ]  Programação Dinâmica - Problema do Mochila.\n\n" +
                     " [ -1 ]  Fecha Gráfico.\n\n" +
                     " [ 0 ]   SAIR \n");
 
@@ -232,7 +233,7 @@ public class Index {
                     // Gera Segmento de Reta
                     do {
                         st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe os dois pontos do Segmento de Reta 1 'x1,y1' : 'x2,y2'"), ",: ");
-                    } while (st1.countTokens() == 4);
+                    } while (st1.countTokens() != 4);
                     SegmentoReta sr9_1 = new SegmentoReta(new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())),
                             new Ponto(Integer.parseInt(st1.nextToken()),Integer.parseInt(st1.nextToken())));
 
@@ -279,24 +280,6 @@ public class Index {
                 case 12:
 
                     conjuntoPontos = carregaPontos();
-                    ArrayList<Ponto> fechoConvexo  = algGraham.procuraFecho((ArrayList<Ponto>) conjuntoPontos.clone());
-                    System.out.println("OS PONTOS DO FECHO CONVESO SÃO: ");
-                    for (int i = 0; i < fechoConvexo.size(); i++)
-                        System.out.print("(" + fechoConvexo.get(i).getX() + ", " + fechoConvexo.get(i).getY() + ")");
-
-                    GravaArquivo.GravaPontos(conjuntoPontos,fechoConvexo);
-                    plotComandos.plot(4);
-
-                    grafico = new Graphic();
-                    grafico.setVisible(true);
-
-                    conjuntoPontos.clear();
-                    break;
-
-                //Menor distancia entre dois pontos
-                case 13:
-
-                    conjuntoPontos = carregaPontos();
                     Ponto[] pontos = new Ponto[conjuntoPontos.size()];
                     int aux = 0;
                     for (Ponto tp: conjuntoPontos) {
@@ -308,6 +291,23 @@ public class Index {
                     System.out.println("Menor distancia = "+ par.toString());
                     GravaArquivo.GravaPontos(conjuntoPontos,par);
                     plotComandos.plot(3);
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
+
+                    conjuntoPontos.clear();
+                    break;
+
+                //FEcho Convexo
+                case 13:
+                    conjuntoPontos = carregaPontos();
+                    ArrayList<Ponto> fechoConvexo  = algGraham.procuraFecho((ArrayList<Ponto>) conjuntoPontos.clone());
+                    System.out.println("OS PONTOS DO FECHO CONVESO SÃO: ");
+                    for (int i = 0; i < fechoConvexo.size(); i++)
+                        System.out.print("(" + fechoConvexo.get(i).getX() + ", " + fechoConvexo.get(i).getY() + ")");
+
+                    GravaArquivo.GravaPontos(conjuntoPontos,fechoConvexo);
+                    plotComandos.plot(4);
+
                     grafico = new Graphic();
                     grafico.setVisible(true);
 
@@ -328,6 +328,41 @@ public class Index {
                                                       "$0,05: "+moedas[3]+"\n"+
                                                       "$0,01: "+moedas[4]+"\n");
                     break;
+
+
+
+                 case 16:
+
+                     ArrayList<Item> itens = new ArrayList<Item>();
+                     itens.add(new Item(1,1));
+                     itens.add(new Item(2,6));
+                     itens.add(new Item(5,18));
+                     itens.add(new Item(6,22));
+                     itens.add(new Item(7,28));
+                     itens.add(new Item(9,40));
+                     itens.add(new Item(11,60));
+
+
+                     int matrix[][];
+                     int capacidade = 23;
+
+                     matrix = EstrategiasPA.proDinamica(itens,capacidade);
+
+                     //Calcula e preenche a lista de itens da solução
+                     int j = capacidade;
+                     String itensSelec= "";
+                     for (int i = itens.size(); i > 0; i--) {
+
+                         if (matrix[i][j] != matrix[i - 1][j]) {
+                            itensSelec += "Item: "+ (i+1) + " - Peso: "+ itens.get(i-1).getPeso() + " - Valor R$"+itens.get(i-1).getValor()+"\n";
+                             j -= itens.get(i-1).getPeso();
+                         }
+                     }
+
+
+                     JOptionPane.showMessageDialog(null,"Valor Máximo: "+matrix[itens.size()][capacidade]+"\n\n"+itensSelec);
+
+                     break;
                 case -1:
                     grafico.dispose();
                     break;
