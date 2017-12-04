@@ -1,10 +1,14 @@
 package modelo;
 
-import com.ibm.jsse2.P;
 
-public class Ponto {
+import java.io.Serializable;
+
+public class Ponto implements Serializable{
     private int x;
     private int y;
+
+    public Ponto(int i) {
+    }
 
     public Ponto() {
     }

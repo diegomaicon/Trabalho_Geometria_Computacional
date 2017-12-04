@@ -8,6 +8,17 @@ import java.util.ArrayList;
 /**
  * o algoritmo de Graham que obtém o fecho convexo de um dado conjunto de pontos.
  * O algoritmo possui complexidade de tempo da ordem de O(n log n), onde n é a quantidade de pontos do conjunto
+ *
+ *         O primeiro passo neste algoritmo é encontrar o ponto com a menor coordenada y.
+ *         Se houver um empate, o ponto com menor coordenada x deve servir como critério de desempate.
+ *         Chamaremos esta ponto de P . Este passo é da ordem O (n), onde n é o número de pontos em questão.
+ *
+ *         De forma a acelerar os cálculos, não é necessário calcular os ângulos que estes pontos formam com o eixo x;
+ *         ao invés disto é suficiente calcular a tangente deste ângulo, que pode ser feito com simples aritmética.
+ *
+ *    Referencia:
+ *    https://pt.wikipedia.org/wiki/Exame_de_Graham
+ *
  */
 public class AlgGraham {
 

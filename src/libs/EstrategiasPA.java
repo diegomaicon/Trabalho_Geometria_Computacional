@@ -1,4 +1,6 @@
-package modelo;
+package libs;
+
+import modelo.Item;
 
 import java.util.ArrayList;
 

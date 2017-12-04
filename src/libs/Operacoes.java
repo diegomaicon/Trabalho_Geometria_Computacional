@@ -1,6 +1,7 @@
-package modelo;
+package libs;
 
 import libs.MergeSort;
+import modelo.*;
 
 import java.util.ArrayList;
 
@@ -16,123 +17,6 @@ public class Operacoes {
         return Math.PI * (raio * raio);
     }
 
-    public ArrayList<Ponto> insert(ArrayList<Ponto> ConjuntoPontos, Ponto ponto) {
-        if (ConjuntoPontos.size() > 0) {
-            ConjuntoPontos.add(ponto);
-            Ponto[] vetor = new Ponto[ConjuntoPontos.size()];
-            int i = 0;
-            for (Ponto p : ConjuntoPontos) { // O(n)
-                vetor[i] = p;
-                i++;
-            }
-            quickSortPonto(vetor, 0, vetor.length - 1); // Caso médio: O( n log n)
-            ArrayList<Ponto> ConjuntoNovo = new ArrayList<Ponto>();
-            for (i = 0; i < vetor.length; i++) {
-                ConjuntoNovo.add(vetor[i]);
-            }
-            return ConjuntoNovo;
-        } else {
-            ConjuntoPontos.add(ponto);
-            return ConjuntoPontos;
-        }
-    }
-
-    public static void quickSortPonto(Ponto[] vetor, int inicio, int fim) {
-        if (inicio < fim) {
-            int posicaoPivo = separarPonto(vetor, inicio, fim);
-            quickSortPonto(vetor, inicio, posicaoPivo - 1);
-            quickSortPonto(vetor, posicaoPivo + 1, fim);
-        }
-    }
-
-    private static int separarPonto(Ponto[] vetor, int inicio, int fim) {
-        Ponto pivo = vetor[inicio];
-        int i = inicio + 1, f = fim;
-        while (i <= f) {
-            if (vetor[i].getX() + vetor[i].getY() <= pivo.getX() + pivo.getY())
-                i++;
-            else if (pivo.getX() + pivo.getY() < vetor[f].getX() + vetor[f].getY())
-                f--;
-            else {
-                Ponto troca = vetor[i];
-                vetor[i] = vetor[f];
-                vetor[f] = troca;
-                i++;
-                f--;
-            }
-        }
-        vetor[inicio] = vetor[f];
-        vetor[f] = pivo;
-        return f;
-    }
-
-
-    public boolean member(ArrayList<Ponto> ListaPonto, Ponto ponto) {
-        if (ListaPonto.size() > 0) {
-            Ponto[] vetor = new Ponto[ListaPonto.size()];
-            int i = 0;
-            for (Ponto p : ListaPonto) { // O(n)
-                vetor[i] = p;
-                i++;
-            }
-            return (buscaBPonto(vetor, ponto)); //Caso médio O(log n)
-        }
-        return false;
-    }
-
-    private static boolean buscaBPonto(Ponto[] vetor, Ponto ponto) {
-        return buscaBinariaRecursiva(vetor, 0, vetor.length - 1, ponto);
-    }
-
-    private static boolean buscaBinariaRecursiva(Ponto[] array, int menor, int maior, Ponto ponto) {
-        int media = (maior + menor) / 2;
-        Ponto valorMeio = array[media];
-        if (menor > maior) {
-            return false;
-        } else if (valorMeio.equals(ponto)) {
-            return true;
-        } else if (valorMeio.getX() + valorMeio.getY() <= ponto.getX() + ponto.getY()) {
-            return buscaBinariaRecursiva(array, media + 1, maior, ponto);
-        } else {
-            return buscaBinariaRecursiva(array, menor, media - 1, ponto);
-        }
-    }
-
-    public static ArrayList<Ponto> delete(ArrayList<Ponto> array, Ponto ponto) {
-        Ponto[] vetor = new Ponto[array.size()];
-        int i = 0;
-        for (Ponto p : array) { // O(n)
-            System.out.println(p.toString());
-            vetor[i] = p;
-            i++;
-        }
-        if (buscaBPonto(vetor, ponto)) { //Caso médio O(log n)
-            int posicao = posicaoPontoNoVetor(vetor, 0, vetor.length - 1, ponto);
-            System.out.println("Posicao: " + posicao);
-            ArrayList<Ponto> ConjuntoNovo = new ArrayList<Ponto>();
-            for (i = 0; i < vetor.length; i++) {
-                if (i != posicao) {
-                    ConjuntoNovo.add(vetor[i]);
-                }
-            }
-            return ConjuntoNovo;
-        }
-        return array;
-    }
-
-    private static int posicaoPontoNoVetor(Ponto[] array, int menor, int maior, Ponto ponto) {
-        int media = (maior + menor) / 2;
-        Ponto valorMeio = array[media];
-        if (menor > maior) {
-            return -1;
-        } else if (valorMeio.equals(ponto)) {
-            return media;
-        } else if (valorMeio.getX() + valorMeio.getY() <= ponto.getX() + ponto.getY()) {
-            return posicaoPontoNoVetor(array, media + 1, maior, ponto);
-        } else {
-            return posicaoPontoNoVetor(array, menor, media - 1, ponto);
-        }
-    }
 
     public float calculoCoefAngularReta(Ponto p1, Ponto p2) {
         int x = p2.getX() - p1.getX();
@@ -186,7 +70,7 @@ public class Operacoes {
         return cofs;
     }
 
-    private Ponto maisProximo(EquacaoReta e,Ponto p){
+    private Ponto maisProximo(EquacaoReta e, Ponto p){
         double den = e.getA()*e.getA() + e.getB()*e.getB();
         Double x = (e.getB()*(e.getB()*p.getX() - e.getA()*p.getY()) - e.getA()*e.getC())/den;
         Double y = (e.getA()*(-e.getB()*p.getX() + e.getA()*p.getY()) - e.getB()*e.getC())/den;
@@ -217,22 +101,46 @@ public class Operacoes {
          return (float) (parte1 / parte2);
     }
 
+    /**
+     * O perímetro do triângulo será P = AB + AC + BC,
+     *  para obter o seu valor, precisamos calcular as
+     *  distâncias ou os comprimentos dos três lados
+     *
+     *
+     * @param sR
+     * @param p
+     * @param ab
+     * @return
+     */
+    public float petrimetro(SegmentoReta sR , Ponto p, Double ab){
+        float ac = (float) Par.distancia(sR.getpSR1(),p);
+        float bc = (float) Par.distancia(sR.getpSR2(),p);
+
+        return (float) (ac+ab+bc);
+    }
 
     /**  Algoritimo de Força Bruta.
      *
-     *      Procura entre todos os pontos o pronto mais proximo do segmento de reta.
+     *
+     *       Procura entre todos os pontos o pronto mais proximo do segmento de reta.
+     *
+     *         Complexidade O(n)
+     *
      *
      * @param pontos
      * @param reta
      * @return
      */
-    public  Ponto pontoMaisProximoReta(ArrayList<Ponto> pontos, SegmentoReta reta){
+    public  Ponto pontoMaisProximoSegmentoReta(ArrayList<Ponto> pontos, SegmentoReta reta){
 
-        float menorDistancia = Float.MAX_VALUE,aux;
+        float menorDistancia = Float.MAX_VALUE;
+        float aux;
         Ponto mPonto = null;
 
+        Double ab = Par.distancia(reta.getpSR1(),reta.getpSR2());
+
         for (Ponto p :pontos) {
-            aux = distanciaPontoReta(p,reta);
+            aux = petrimetro(reta,p,ab);
             System.out.println(p.getX()+","+p.getY()+"-> Distancia: "+aux);
             if (aux>0)
                 if(aux <= menorDistancia){
@@ -242,6 +150,8 @@ public class Operacoes {
         }
         return mPonto;
     }
+
+
 
     /**
      * Predicado orientação 2D. (slides 29-31 do pdf auxiliar)
