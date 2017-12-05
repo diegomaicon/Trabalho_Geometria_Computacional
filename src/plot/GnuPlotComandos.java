@@ -5,7 +5,18 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *  Classe onde é enviado ao Gnuplot, que é um utilitário de gráficos com linha de comando portátil para Linux, OS / 2, MS Windows, OSX, VMS e muitas outras plataformas.
+ *  O código-fonte é protegido por direitos autorais, mas distribuído gratuitamente (ou seja, você não precisa pagar por isso).
+ *  Foi originalmente criado para permitir que cientistas e alunos visualizem funções matemáticas e dados de forma interativa,
+ *  mas cresceu para suportar muitos usos não interativos, como scripts na web.
+ *  Também é usado como um mecanismo de gráficos por aplicativos de terceiros, como Octave.
+ *  O Gnuplot foi apoiado e em desenvolvimento ativo desde 1986.
+ *
+ */
 
     public class GnuPlotComandos {
 

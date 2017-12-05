@@ -5,12 +5,16 @@ import modelo.Ponto;
 import java.util.ArrayList;
 
 /**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *
  * As operações tamanho , isEmpty , get , set , iterator e listIterator são executadas em tempo constante.
  * A operação de adicionar funciona em tempo constante amortizado , ou seja, adicionar n elementos requer tempo de O (n).
  * Todas as outras operações funcionam em tempo linear (grosso modo).
  *
  *
- *   https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+ * Fonte: https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
  *
  *
  */
@@ -69,12 +73,23 @@ public class ManiputationConjunto {
         return false;
     }
 
-
+    /**
+     *  Retorna o Min pelo eixo X
+     *
+     * @param conjuntoPontos
+     * @return
+     */
     public static Ponto minX(ArrayList<Ponto> conjuntoPontos) {
         Ponto[] vetor = operacoes.retornaVetorPontoOrdenado(conjuntoPontos, 'x');
         return vetor[0];
     }
 
+    /**
+     * Retorna o Min pelo eixo Y
+     *
+     * @param conjuntoPontos
+     * @return
+     */
     public static Ponto minY(ArrayList<Ponto> conjuntoPontos) {
         Ponto[] vetor = operacoes.retornaVetorPontoOrdenado(conjuntoPontos, 'y');
         return vetor[0];
@@ -91,7 +106,15 @@ public class ManiputationConjunto {
         return ConjConjPontos;
     }
 
-
+    /**
+     *  Operação de união de conjuntos.
+     *
+     *  Complexidade O(n).
+     *
+     * @param Conj1
+     * @param Conj2
+     * @return
+     */
     public static ArrayList<Ponto> union(ArrayList<Ponto> Conj1, ArrayList<Ponto> Conj2) {
         for (Ponto p : Conj2) {
             if (!member(Conj1, p)) {
@@ -101,6 +124,15 @@ public class ManiputationConjunto {
         return Conj1;
     }
 
+    /**
+     *  Operação de intercecção entre dois conjuntos.
+     *
+     *      Complexidade O(n).
+     *
+     * @param Conj1
+     * @param Conj2
+     * @return
+     */
     public static ArrayList<Ponto> intersection(ArrayList<Ponto> Conj1, ArrayList<Ponto> Conj2) {
         ArrayList<Ponto> novo = new ArrayList<Ponto>();
         for (Ponto p : Conj2) {
@@ -111,13 +143,24 @@ public class ManiputationConjunto {
         return novo;
     }
 
-    public static ArrayList<Ponto> difference(ArrayList<Ponto> Conj1, ArrayList<Ponto> Conj2) {
-        for (Ponto p : Conj2) {
-            if (member(Conj1, p)) {
-                Conj1.remove(p);
+    /**
+     *  Operação de diferença entre dois conjuntos
+     *
+     *  Complexidade O(n)
+     *
+     * @param conj1
+     * @param conj2
+     * @return
+     */
+    public static ArrayList<Ponto> difference(ArrayList<Ponto> conj1, ArrayList<Ponto> conj2) {
+
+        for (Ponto p : conj2) {
+            if (member(conj1, p)) {
+                conj1 = delete(conj1,p);
+                System.out.println("achou "+p.toString());
             }
         }
-        return Conj1;
+        return conj1;
     }
 
     /**

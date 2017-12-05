@@ -4,13 +4,24 @@ import modelo.Item;
 
 import java.util.ArrayList;
 
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *      Esta classe implementos alguns algoritmos de Estratégia de Projeto de software
+ *      * Guloso
+ *      * Programação Dinâmica
+ *
+ */
+
 public class EstrategiasPA {
 
 
     /**
+     *
      * Prova ENADE 2017
      * Suponha que tenhamos dispon´ıveis moedas com valores de 50, 25, 10, 5 e 1. O problema
-       e criar um algoritmo que para conseguir obter um determinado valor com o menor n ´ umero de moedas ´
+       e criar um algoritmo que para conseguir obter um determinado valor com o menor número de moedas ´
        possível (problema do troco).
      *
      *

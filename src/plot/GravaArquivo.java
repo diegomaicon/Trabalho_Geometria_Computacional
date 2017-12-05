@@ -9,6 +9,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ */
 public class GravaArquivo {
 
 

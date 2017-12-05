@@ -1,5 +1,12 @@
 package modelo;
 
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *  Classe modelo qu representa itens na mochila;
+ *
+ */
 public class ItemMochila {
     private int numItem;
     private int peso;

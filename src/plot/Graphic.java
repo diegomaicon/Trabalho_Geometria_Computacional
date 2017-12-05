@@ -16,7 +16,12 @@ import java.awt.*;
 
 /**
  *
- * @author rick
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *
+ *  Classe que imprime a imagem gerada pelo Gnuplot.
+ *
  */
 public class Graphic extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;

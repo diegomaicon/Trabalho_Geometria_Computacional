@@ -11,10 +11,18 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ */
+
 public class Index {
 
 
-    /* A utility function to print array of size n */
+    /**
+     *  Uma função de utilidade para imprimir matriz de tamanho n
+     **/
     private static void printArray(Ponto arr[]) {
         int n = arr.length;
         for (int i = 0; i < n; ++i)
@@ -75,20 +83,25 @@ public class Index {
 
     }
 
+    /**
+     *  Cria menu inicial
+     *
+     * @param pontos
+     */
     private static void manipulaConjuntos(ArrayList<Ponto> pontos) {
         StringTokenizer st1;
         ArrayList<Ponto> conjPonto = (ArrayList<Ponto>) pontos.clone();
-        String op = "100";
+        String op = "100",print="";
         do {
             op = JOptionPane.showInputDialog(null, "Menu de manipulação de conjuntos\n\n" +
                     " • [1] S:member(u) – Tem-se que u 2 S? (resposta sim/não))\n" +
                     " • [2] S:insert(u) – Adiciona u em S\n" +
                     " • [3] S:delete(u) – Remove u de S\n\n" +
 
-                    " • [4] C:member(A) – Tem-se que A ⊆ C? (resposta sim/não)\n" +
-                    " • [5] C:insert(A) – Adiciona A em C, se A \\ Si = ? para todo 1 <= i <= k. \n" +
-                    " • [6] C:delete(A) – Remove A de C.\n" +
-                    " • [7] C:find(u) – Retorna Sj, se u 2 Sj.\n\n" +
+                    " • [4] Cancelado C:member(A) – Tem-se que A ⊆ C? (resposta sim/não)\n" +
+                    " • [5] Cancelado C:insert(A) – Adiciona A em C, se A \\ Si = ? para todo 1 <= i <= k. \n" +
+                    " • [6] Cancelado C:delete(A) – Remove A de C.\n" +
+                    " • [7] Cancelado C:find(u) – Retorna Sj, se u 2 Sj.\n\n" +
 
                     " • [8] union(A; B) – Retorna A U B.\n" +
                     " • [9] intersection(A; B) – Retorna A  B.\n" +
@@ -133,10 +146,33 @@ public class Index {
                 case 7:
                     break;
                 case 8:
+                    print = "Uniao S A \n [";
+                    for (Ponto p: ManiputationConjunto.union(carregaPontos(),carregaPontos2())) {
+                        print += "("+p.getX()+","+p.getY()+")";
+                    }
+                        print+="]";
+                    JOptionPane.showMessageDialog(null,print);
+                    print="";
                     break;
                 case 9:
+                    print = "Intersecção S A \n [";
+                    for (Ponto p: ManiputationConjunto.intersection(carregaPontos(),carregaPontos2())) {
+                        print += "("+p.getX()+","+p.getY()+")";
+                    }
+                    print +="]";
+                    JOptionPane.showMessageDialog(null,print);
+                    print ="";
+
                     break;
                 case 10:
+                    print = "Diferença S - A \n [";
+                    for (Ponto p: ManiputationConjunto.difference(carregaPontos(),carregaPontos2())) {
+                        print += "("+p.getX()+","+p.getY()+")";
+                    }
+                    print +="]";
+                    JOptionPane.showMessageDialog(null,print);
+                    print ="";
+
                     break;
                 case 11:
                     Ponto p11;
@@ -146,33 +182,36 @@ public class Index {
                         JOptionPane.showMessageDialog(null,"Menor ponto eixo X ponto ["+p11.getX()+","+p11.getY()+"]");
                     } else if (op11 == 2){
                         p11 =  ManiputationConjunto.minY(conjPonto);
-                        JOptionPane.showMessageDialog(null,"Menor ponto eixo X ponto ["+p11.getX()+","+p11.getY()+"]");
+                        JOptionPane.showMessageDialog(null,"Menor ponto eixo Y ponto ["+p11.getX()+","+p11.getY()+"]");
                     }
 
                     break;
                 case 12:
                     int u = Integer.parseInt(JOptionPane.showInputDialog(null,"Informe a posição para Split"));
                     ArrayList<ArrayList<Ponto>> conjConj = ManiputationConjunto.split(carregaPontos(),u);
-                    String st12="Conjunto S1\n[";
+                    print = "Conjunto S1\n[";
                     for (Ponto ps1: conjConj.get(0)) {
-                        st12 += "("+ps1.getX()+","+ps1.getX()+")";
+                        print += "("+ps1.getX()+","+ps1.getX()+")";
                     }
-                        st12 += "]\n Conjunto S2\n[";
+                        print += "]\n Conjunto S2\n[";
 
                     for (Ponto ps2: conjConj.get(1)) {
-                        st12 += "("+ps2.getX()+","+ps2.getX()+")";
+                        print += "("+ps2.getX()+","+ps2.getX()+")";
                     }
-                        st12+="]";
-                    JOptionPane.showMessageDialog(null,st12);
+                        print += "]";
+                    JOptionPane.showMessageDialog(null,print);
+                    print = "";
+
                     break;
                 case 13:
                     ArrayList<Ponto> S = ManiputationConjunto.concatenate(carregaPontos(),carregaPontos2());
-                    String st13="Conjunto [";
+                    print = "Concatenate S = A \nConjunto [";
                     for (Ponto p: S) {
-                        st13 +=  "("+p.getX()+","+p.getY()+")";
+                        print +=  "("+p.getX()+","+p.getY()+")";
                     }
-                    st13+="]";
-                    JOptionPane.showMessageDialog(null,st13);
+                    print+="]";
+                    JOptionPane.showMessageDialog(null,print);
+                    print="";
                     break;
             }
 

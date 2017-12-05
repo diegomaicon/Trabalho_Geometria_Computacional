@@ -3,6 +3,14 @@ package modelo;
 
 import java.io.Serializable;
 
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *  Classe modelo de um plonto no plano Cartesiano
+ *
+ */
+
 public class Ponto implements Serializable{
     private int x;
     private int y;

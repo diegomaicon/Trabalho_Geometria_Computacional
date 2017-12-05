@@ -1,18 +1,29 @@
 package libs;
 
-import libs.MergeSort;
+
 import modelo.*;
 
 import java.util.ArrayList;
 
-import static com.ibm.jsse2.util.h.c;
+
 
 /**
  * Created by Debora and Diego on 17/10/2017.
+ *
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *
+ *
  */
 public class Operacoes {
 
-
+    /**
+     *  Calcula a área de um circulo
+     *
+     * @param raio
+     * @return
+     */
     public double areaCirculo(int raio) {
         return Math.PI * (raio * raio);
     }
@@ -92,11 +103,10 @@ public class Operacoes {
 
         double parte1 = (equacaoReta.getA() * ponto.getX()) + (equacaoReta.getB() * ponto.getY()) + (equacaoReta.getC());
         parte1 = Math.abs(parte1);
-        //System.out.println("P1 :"+parte1);
         double parte2 = ((equacaoReta.getA() * equacaoReta.getA()) + (equacaoReta.getB() * equacaoReta.getB()));
 
         parte2 = Math.sqrt(parte2);
-       // System.out.println("P2 :"+parte2);
+
 
          return (float) (parte1 / parte2);
     }

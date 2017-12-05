@@ -1,5 +1,12 @@
 package modelo;
 
+/**
+ *  @author Déborah A. Resende
+ *  @author Diego Maicon
+ *
+ *  Classe modelo  de um par de pontos
+ *
+ */
 public class Par {
 
     public Ponto p1 = null;
@@ -21,6 +28,13 @@ public class Par {
         this.distancia = distancia;
     }
 
+    /**
+     *  Calcula a distância entre dois pontos.
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
     public static double distancia(Ponto p1, Ponto p2){
         return Math.sqrt(Math.pow(p1.getX()-p2.getX(),2) + Math.pow((p1.getY() - p2.getY()),2) );
     }
@@ -29,7 +43,4 @@ public class Par {
         this.distancia = distancia(p1, p2);
     }
 
-    public String toString() {
-        return p1 + "-" + p2 + " : " + distancia;
-    }
 }
