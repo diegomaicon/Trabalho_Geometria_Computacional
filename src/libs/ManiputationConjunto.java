@@ -8,6 +8,11 @@ import java.util.ArrayList;
  * As operações tamanho , isEmpty , get , set , iterator e listIterator são executadas em tempo constante.
  * A operação de adicionar funciona em tempo constante amortizado , ou seja, adicionar n elementos requer tempo de O (n).
  * Todas as outras operações funcionam em tempo linear (grosso modo).
+ *
+ *
+ *   https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+ *
+ *
  */
 
 
@@ -115,24 +120,48 @@ public class ManiputationConjunto {
         return Conj1;
     }
 
-
-    public static ArrayList<ArrayList<Ponto>> Split(ArrayList<Ponto> conjPontos, int u){
-        ArrayList<Ponto> novo1 = new ArrayList<Ponto>();
-        ArrayList<Ponto> novo2 = new ArrayList<Ponto>();
-        int i=0;
+    /**
+     *  Separa a lista de Pontos em Duas listas.
+     *
+     *  Complexidade O(n)
+     *
+     * @param conjPontos
+     * @param u
+     * @return
+     */
+    public static ArrayList<ArrayList<Ponto>> split(ArrayList<Ponto> conjPontos, int u){
+        ArrayList<Ponto> s1 = new ArrayList<Ponto>();
+        ArrayList<Ponto> s2 = new ArrayList<Ponto>();
+        int i=1;
         for (Ponto p : conjPontos){
-            if (i<=u){
-                novo1.add(p);
+            if (i <= u ){
+                s1.add(p);
             }else{
-                novo2.add(p);
+                s2.add(p);
             }
+            i++;
         }
         ArrayList<ArrayList<Ponto>> ConjConj = new ArrayList<ArrayList<Ponto>>();
-        ConjConj.add(novo1);
-        ConjConj.add(novo2);
+        ConjConj.add(s1);
+        ConjConj.add(s2);
+
         return ConjConj;
     }
 
-
+    /**
+     * Concatena  dois conjuntos S U A
+     *
+     *  Complexidade O(n)
+     *
+     * @param S
+     * @param A
+     * @return
+     */
+    public static ArrayList<Ponto> concatenate(ArrayList<Ponto> S,ArrayList<Ponto> A){
+        ArrayList<Ponto> aux = new ArrayList<Ponto>();
+        aux.addAll(S);
+        aux.addAll(A);
+        return aux;
+    }
 
 }

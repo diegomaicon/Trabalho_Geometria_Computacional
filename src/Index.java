@@ -56,6 +56,24 @@ public class Index {
 
         return conjuntoPontos;
     }
+    private static ArrayList<Ponto> carregaPontos2() {
+        Ponto p1 = new Ponto(-3,-2);
+        Ponto p2 = new Ponto(-1,4);
+        Ponto p3 = new Ponto(6,1);
+        Ponto p4 = new Ponto(3,10);
+        Ponto p5 = new Ponto(-4,9);
+        Ponto p6 = new Ponto(1,1);
+
+        ArrayList<Ponto> conjuntoPontos = new ArrayList();
+        conjuntoPontos.add(p1);
+        conjuntoPontos.add(p2);
+        conjuntoPontos.add(p3);
+        conjuntoPontos.add(p4);
+        conjuntoPontos.add(p5);
+        conjuntoPontos.add(p6);
+        return conjuntoPontos;
+
+    }
 
     private static void manipulaConjuntos(ArrayList<Ponto> pontos) {
         StringTokenizer st1;
@@ -133,8 +151,28 @@ public class Index {
 
                     break;
                 case 12:
+                    int u = Integer.parseInt(JOptionPane.showInputDialog(null,"Informe a posição para Split"));
+                    ArrayList<ArrayList<Ponto>> conjConj = ManiputationConjunto.split(carregaPontos(),u);
+                    String st12="Conjunto S1\n[";
+                    for (Ponto ps1: conjConj.get(0)) {
+                        st12 += "("+ps1.getX()+","+ps1.getX()+")";
+                    }
+                        st12 += "]\n Conjunto S2\n[";
+
+                    for (Ponto ps2: conjConj.get(1)) {
+                        st12 += "("+ps2.getX()+","+ps2.getX()+")";
+                    }
+                        st12+="]";
+                    JOptionPane.showMessageDialog(null,st12);
                     break;
                 case 13:
+                    ArrayList<Ponto> S = ManiputationConjunto.concatenate(carregaPontos(),carregaPontos2());
+                    String st13="Conjunto [";
+                    for (Ponto p: S) {
+                        st13 +=  "("+p.getX()+","+p.getY()+")";
+                    }
+                    st13+="]";
+                    JOptionPane.showMessageDialog(null,st13);
                     break;
             }
 
