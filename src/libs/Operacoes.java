@@ -90,7 +90,9 @@ public class Operacoes {
     }
 
     /**
-     * Calcula a Distancia netre um ponto e uma REta
+     * Calcula a Distancia netre um ponto e uma Reta
+     *
+     *  Complexidade O(1)
      *
      * @param ponto
      * @param reta
@@ -116,6 +118,7 @@ public class Operacoes {
      *  para obter o seu valor, precisamos calcular as
      *  distâncias ou os comprimentos dos três lados
      *
+     *  Complexidade O(1).
      *
      * @param sR
      * @param p
@@ -196,41 +199,96 @@ public class Operacoes {
         int resultado = (soma1[0]+soma1[1]+soma1[2]) - (soma2[0]+soma2[1]+soma2[2]);
 
         if (resultado == 0){
-            return  resultado + " COLINEAR";
+            return  resultado + " é COLINEAR";
         } else if (resultado>0){
-            return resultado + " Está a ESQQUERDA da reta";
+            return resultado + " está a ESQUERDA da reta";
         } else {
-            return resultado + " Está a DIREITA da reta";
+            return resultado + " está a DIREITA da reta";
         }
     }
 
     /**
      *  Verifica se exixte uma interseção entre duas Retas
+     *
+     *  Complexidade O(1).
+     *
      * @param reta1
      * @param reta2
      * @return
      */
-    public  String intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
 
-        float[] eqGR1;
-        float[] eqGR2;
-        eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
-        eqGR2 = calculoEquacaoGeralReta(reta2.getpSR1(), reta2.getpSR2());
-        float parteB = ((eqGR1[0] * eqGR2[1]) - (eqGR2[0] * eqGR1[1]));
-        if (parteB == 0) {
-            return "As retas são paralelas";
-        } else {
-            float xp = ((eqGR2[2] * eqGR1[1]) - (eqGR1[2] * eqGR2[1]));
-            xp = xp / parteB;
-            float yp = ((eqGR2[0] * eqGR1[2]) - (eqGR1[0]) * eqGR2[2]);
-            yp = yp / parteB;
-            Ponto pontoIntersecao = new Ponto();
-            pontoIntersecao.setX((int) xp);
-            pontoIntersecao.setY((int) yp);
-            return "Interseção no  [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]";
+        public  String intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
+
+            float[] eqGR1;
+            float[] eqGR2;
+            eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
+            eqGR2 = calculoEquacaoGeralReta(reta2.getpSR1(), reta2.getpSR2());
+            System.out.println(eqGR1[0] + ">" + eqGR1[1] + ">" + eqGR1[2]);
+            System.out.println(eqGR2[0] + ">" + eqGR2[1] + ">" + eqGR2[2]);
+            float parteB = ((eqGR1[0] * eqGR2[1]) - (eqGR2[0] * eqGR1[1]));
+            if (parteB == 0) {
+                return "As retas são paralelas";
+            } else {
+                if (doIntersect(reta1, reta2)) {
+
+                    float xp = ((eqGR2[2] * eqGR1[1]) - (eqGR1[2] * eqGR2[1]));
+                    xp = xp / parteB;
+                    float yp = ((eqGR2[0] * eqGR1[2]) - (eqGR1[0]) * eqGR2[2]);
+                    yp = yp / parteB;
+                    Ponto pontoIntersecao = new Ponto();
+                    pontoIntersecao.setX((int) xp);
+                    pontoIntersecao.setY((int) yp);
+                    return "Interseção no  [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]";
+                }
+            }
+            return "Os segmentos não se cruzam";
+
         }
 
+  private  boolean onSegment(Ponto p, Ponto q, Ponto r) {
+        if (q.getX() <= Math.max(p.getX(), r.getX()) && q.getX() >= Math.min(p.getX(), r.getX()) &&
+                q.getY() <= Math.max(p.getY(), r.getY()) && q.getY() >= Math.min(p.getY(), r.getY()))
+            return true;
+        return false;
     }
+
+
+    private boolean doIntersect(SegmentoReta reta1, SegmentoReta reta2){
+        int o1 = orientation(reta1.getpSR1(), reta1.getpSR2(), reta2.getpSR1());
+        int o2 =  orientation(reta1.getpSR1(), reta1.getpSR2(), reta2.getpSR2());
+        int o3 = orientation(reta2.getpSR1(), reta2.getpSR2(), reta1.getpSR1());
+        int o4 = orientation(reta2.getpSR1(), reta2.getpSR2(), reta1.getpSR2());
+        if (o1 != o2 && o3 != o4) {
+            return true;
+        }
+        if (o1 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR1(), reta1.getpSR2())){
+            return true;
+        }
+        if (o2 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR2(),  reta1.getpSR2())){
+            return true;
+        }
+        if (o3 == 0 && onSegment(reta2.getpSR1(), reta1.getpSR1(), reta2.getpSR2())) {
+            return true;
+        }
+        if (o4 == 0 && onSegment(reta2.getpSR1(), reta1.getpSR2(), reta2.getpSR2())) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private int orientation(Ponto p, Ponto q, Ponto r) {
+        int val = (q.getY() - p.getY()) * (r.getX() - q.getX()) - (q.getX() - p.getX()) * (r.getY() - q.getY());
+        if (val == 0){
+            return 0;  // colinear
+        }
+        else if (val>0){
+            return 1;
+        }
+        return 2;
+    }
+
 
     /**
      * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
@@ -323,6 +381,8 @@ public class Operacoes {
      * Problema do par mais próximo
      * Adaptação do Algoritmo de Shamos-Hoey
      * Algoritmo  Complexidade O(nlog-n) tempo.
+     *
+     * Fonte: https://www.cs.princeton.edu/~rs/AlgsDS07/16Geometric.pdf
      *
      * @param pontosSortedByX
      * @param pontosSortedByY

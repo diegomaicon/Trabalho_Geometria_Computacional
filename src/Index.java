@@ -32,13 +32,10 @@ public class Index {
 
     private static ArrayList<Ponto> carregaPontos() {
 
-        Ponto p1 = new Ponto(1, 9);
-        Ponto p2 = new Ponto(10, 5);
-        Ponto p3 = new Ponto(12, 3);
-        Ponto p4 = new Ponto(1, 1);
-        Ponto p5 = new Ponto(8, 9);
-        Ponto p6 = new Ponto(2, 3);
-        Ponto p7 = new Ponto(1, 2);
+        Ponto p1 = new Ponto(1, 3);
+        Ponto p2 = new Ponto(3, 3);
+        Ponto p3 = new Ponto(5, 3);
+        Ponto p7 = new Ponto(1, 5);
         Ponto p8 = new Ponto(4, 1);
         Ponto p9 = new Ponto(5, 5);
         Ponto p10 = new Ponto(1, 0);
@@ -54,9 +51,9 @@ public class Index {
         conjuntoPontos.add(p1);
         conjuntoPontos.add(p2);
         conjuntoPontos.add(p3);
-        conjuntoPontos.add(p4);
-        conjuntoPontos.add(p5);
-        conjuntoPontos.add(p6);
+      //  conjuntoPontos.add(p4);
+        // conjuntoPontos.add(p5);
+        //conjuntoPontos.add(p6);
         conjuntoPontos.add(p7);
         conjuntoPontos.add(p8);
         conjuntoPontos.add(p9);
@@ -348,7 +345,7 @@ public class Index {
                     pts.add(new Ponto(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken())));
                     pts.add(new Ponto(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken())));
                     pts.add(new Ponto(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken())));
-                    JOptionPane.showMessageDialog(null, "" + operacoes.predicadoOrientacao2D(pts.get(0), pts.get(1), pts.get(2)));
+                    JOptionPane.showMessageDialog(null, "O Ponto " + operacoes.predicadoOrientacao2D(pts.get(0), pts.get(1), pts.get(2)));
 
                     GravaArquivo.GravaPontos(pts);
                     plotComandos.plot(6);
@@ -412,7 +409,9 @@ public class Index {
                     SegmentoReta sr9_2 = new SegmentoReta(new Ponto(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken())),
                             new Ponto(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken())));
 
-                    JOptionPane.showMessageDialog(null, "" + operacoes.intersecaoSegRetas(sr9_1, sr9_2));
+
+                   JOptionPane.showMessageDialog(null, operacoes.intersecaoSegRetas(sr9_1, sr9_2)+"");
+
 
                     GravaArquivo.GravaPontos(sr9_1, sr9_2);
 
@@ -426,13 +425,13 @@ public class Index {
                 // Predicado ponto dentro do polígono.
                 case 11:
                     st1 = new StringTokenizer(JOptionPane.showInputDialog(null, "Informe Ponto   'x,y'"), ",");
-                    Ponto p10 = new Ponto(Integer.parseInt(st1.nextToken()), Integer.parseInt(st1.nextToken()));
+                    Ponto p11 = new Ponto(Integer.parseInt(st1.nextToken()), Integer.parseInt(st1.nextToken()));
 
                     conjuntoPontos = carregaPontos();
 
-                    JOptionPane.showMessageDialog(null, "" + operacoes.predicadoPontoDentroPoligono(p10, conjuntoPontos));
+                    JOptionPane.showMessageDialog(null, "" + operacoes.predicadoPontoDentroPoligono(p11, conjuntoPontos));
 
-                    GravaArquivo.GravaPontos(conjuntoPontos, p10);
+                    GravaArquivo.GravaPontos(conjuntoPontos, p11);
 
                     // poligono e ponto
                     plotComandos.plot(7);

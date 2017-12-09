@@ -58,14 +58,15 @@ public class EstrategiasPA {
         Isso porque tanto o tamanho dos itens quanto a capacidade da mochila são inteiros!
 
         Podemos entao usar programacão dinâmica para evitar o recalculo de subproblemas.
+
+        Referência: https://www.youtube.com/watch?v=pEH5uuC4nlw
+
      *
      * @param itens
      * @param capacidade
      * @return
      */
     public static int[][] proDinamica(ArrayList<Item> itens, int capacidade ){
-
-        //Referência: https://www.youtube.com/watch?v=pEH5uuC4nlw
 
         int[][] matrix = new int[itens.size() + 1][capacidade + 1];
 

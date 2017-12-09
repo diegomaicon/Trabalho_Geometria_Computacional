@@ -18,12 +18,16 @@ public class Ponto implements Serializable{
     public Ponto(int i) {
     }
 
-    public Ponto() {
+    public Ponto(float abs, float v) {
     }
 
     public Ponto(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Ponto() {
+
     }
 
     public int getX() {
