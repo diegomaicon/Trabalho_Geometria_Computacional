@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *  @author Déborah A. Resende
  *  @author Diego Maicon
  *
- * o algoritmo de Graham que obtém o fecho convexo de um dado conjunto de pontos.
+ * O algoritmo de Graham que obtém o fecho convexo de um dado conjunto de pontos.
  * O algoritmo possui complexidade de tempo da ordem de O(n log n), onde n é a quantidade de pontos do conjunto
  *
  *         O primeiro passo neste algoritmo é encontrar o ponto com a menor coordenada y.

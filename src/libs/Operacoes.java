@@ -4,7 +4,7 @@ package libs;
 import modelo.*;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 
 /**
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Operacoes {
 
     /**
-     *  Calcula a área de um circulo
+     * Calcula a área de um circulo
      *
      * @param raio
      * @return
@@ -61,38 +61,36 @@ public class Operacoes {
         return result;
     }
 
+
     /**
-     *  o cálculo dos coeficientes, pesquise, em um livro de
-     *  matemática (geometria analítica) como determinar a equação geral
-     *  da reta a partir de dois pontos
-     *
+     * o cálculo dos coeficientes, pesquise, em um livro de
+     * matemática (geometria analítica) como determinar a equação geral
+     * da reta a partir de dois pontos
      *
      * @param p1
      * @param p2
      * @return
      */
-    private static double[] calculoEquacaoGeralReta2(Ponto p1, Ponto p2){
+    private static double[] calculoEquacaoGeralReta2(Ponto p1, Ponto p2) {
         double[] cofs = new double[3];
 
         cofs[0] = p1.getY() - p2.getY();
-        cofs[1] = p2.getX() - p1.getX() ;
+        cofs[1] = p2.getX() - p1.getX();
         cofs[2] = p1.getX() * p2.getY() - p2.getX() * p1.getY();
 
         return cofs;
     }
 
-    private Ponto maisProximo(EquacaoReta e, Ponto p){
-        double den = e.getA()*e.getA() + e.getB()*e.getB();
-        Double x = (e.getB()*(e.getB()*p.getX() - e.getA()*p.getY()) - e.getA()*e.getC())/den;
-        Double y = (e.getA()*(-e.getB()*p.getX() + e.getA()*p.getY()) - e.getB()*e.getC())/den;
+    private Ponto maisProximo(EquacaoReta e, Ponto p) {
+        double den = e.getA() * e.getA() + e.getB() * e.getB();
+        Double x = (e.getB() * (e.getB() * p.getX() - e.getA() * p.getY()) - e.getA() * e.getC()) / den;
+        Double y = (e.getA() * (-e.getB() * p.getX() + e.getA() * p.getY()) - e.getB() * e.getC()) / den;
 
         return new Ponto((int) Math.abs(x), (int) Math.abs(y));
     }
 
     /**
-     * Calcula a Distancia netre um ponto e uma Reta
-     *
-     *  Complexidade O(1)
+     * Calcula a Distancia netre um ponto e uma REta
      *
      * @param ponto
      * @param reta
@@ -101,7 +99,7 @@ public class Operacoes {
     public float distanciaPontoReta(Ponto ponto, SegmentoReta reta) {
         double[] resultEquacao;
         resultEquacao = calculoEquacaoGeralReta2(reta.getpSR1(), reta.getpSR2());
-        EquacaoReta equacaoReta = new EquacaoReta(resultEquacao[0],resultEquacao[1],resultEquacao[2]);
+        EquacaoReta equacaoReta = new EquacaoReta(resultEquacao[0], resultEquacao[1], resultEquacao[2]);
 
         double parte1 = (equacaoReta.getA() * ponto.getX()) + (equacaoReta.getB() * ponto.getY()) + (equacaoReta.getC());
         parte1 = Math.abs(parte1);
@@ -110,60 +108,57 @@ public class Operacoes {
         parte2 = Math.sqrt(parte2);
 
 
-         return (float) (parte1 / parte2);
+        return (float) (parte1 / parte2);
     }
 
     /**
      * O perímetro do triângulo será P = AB + AC + BC,
-     *  para obter o seu valor, precisamos calcular as
-     *  distâncias ou os comprimentos dos três lados
-     *
-     *  Complexidade O(1).
+     * para obter o seu valor, precisamos calcular as
+     * distâncias ou os comprimentos dos três lados
      *
      * @param sR
      * @param p
      * @param ab
      * @return
      */
-    public float petrimetro(SegmentoReta sR , Ponto p, Double ab){
-        float ac = (float) Par.distancia(sR.getpSR1(),p);
-        float bc = (float) Par.distancia(sR.getpSR2(),p);
+    public float petrimetro(SegmentoReta sR, Ponto p, Double ab) {
+        float ac = (float) Par.distancia(sR.getpSR1(), p);
+        float bc = (float) Par.distancia(sR.getpSR2(), p);
 
-        return (float) (ac+ab+bc);
+        return (float) (ac + ab + bc);
     }
 
-    /**  Algoritimo de Força Bruta.
-     *
-     *
-     *       Procura entre todos os pontos o pronto mais proximo do segmento de reta.
-     *
-     *         Complexidade O(n)
-     *
+    /**
+     * Algoritimo de Força Bruta.
+     * <p>
+     * <p>
+     * Procura entre todos os pontos o pronto mais proximo do segmento de reta.
+     * <p>
+     * Complexidade O(n)
      *
      * @param pontos
      * @param reta
      * @return
      */
-    public  Ponto pontoMaisProximoSegmentoReta(ArrayList<Ponto> pontos, SegmentoReta reta){
+    public Ponto pontoMaisProximoSegmentoReta(ArrayList<Ponto> pontos, SegmentoReta reta) {
 
         float menorDistancia = Float.MAX_VALUE;
         float aux;
         Ponto mPonto = null;
 
-        Double ab = Par.distancia(reta.getpSR1(),reta.getpSR2());
+        Double ab = Par.distancia(reta.getpSR1(), reta.getpSR2());
 
-        for (Ponto p :pontos) {
-            aux = petrimetro(reta,p,ab);
-            System.out.println(p.getX()+","+p.getY()+"-> Distancia: "+aux);
-            if (aux>0)
-                if(aux <= menorDistancia){
+        for (Ponto p : pontos) {
+            aux = petrimetro(reta, p, ab);
+            System.out.println(p.getX() + "," + p.getY() + "-> Distancia: " + aux);
+            if (aux > 0)
+                if (aux <= menorDistancia) {
                     menorDistancia = aux;
                     mPonto = p;
                 }
         }
         return mPonto;
     }
-
 
 
     /**
@@ -174,7 +169,7 @@ public class Operacoes {
      * @param ponto3
      * @return
      */
-    public String predicadoOrientacao2D(Ponto ponto1, Ponto ponto2,Ponto ponto3) { //MUDAR >>> VOID
+    public String predicadoOrientacao2D(Ponto ponto1, Ponto ponto2, Ponto ponto3) { //MUDAR >>> VOID
         int[][] matriz = new int[3][5];
         matriz[0][0] = ponto1.getX();
         matriz[0][1] = ponto2.getX();
@@ -196,56 +191,53 @@ public class Operacoes {
 
         int soma1[] = {(matriz[0][0] * matriz[1][1] * matriz[2][2]), (matriz[0][1] * matriz[1][2] * matriz[2][3]), (matriz[0][2] * matriz[1][3] * matriz[2][4])};
         int soma2[] = {(matriz[2][0] * matriz[1][1] * matriz[0][2]), (matriz[0][3] * matriz[1][2] * matriz[2][1]), (matriz[2][2] * matriz[1][3] * matriz[0][4])};
-        int resultado = (soma1[0]+soma1[1]+soma1[2]) - (soma2[0]+soma2[1]+soma2[2]);
+        int resultado = (soma1[0] + soma1[1] + soma1[2]) - (soma2[0] + soma2[1] + soma2[2]);
 
-        if (resultado == 0){
-            return  resultado + " é COLINEAR";
-        } else if (resultado>0){
-            return resultado + " está a ESQUERDA da reta";
+        if (resultado == 0) {
+            return resultado + " COLINEAR";
+        } else if (resultado > 0) {
+            return resultado + " Está a ESQQUERDA da reta";
         } else {
-            return resultado + " está a DIREITA da reta";
+            return resultado + " Está a DIREITA da reta";
         }
     }
 
     /**
-     *  Verifica se exixte uma interseção entre duas Retas
-     *
-     *  Complexidade O(1).
+     * Verifica se exixte uma interseção entre dois Seg de Retas
      *
      * @param reta1
      * @param reta2
      * @return
      */
+    public String intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
 
-        public  String intersecaoSegRetas(SegmentoReta reta1, SegmentoReta reta2) {//MUDAR O VOID
+        float[] eqGR1;
+        float[] eqGR2;
+        eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
+        eqGR2 = calculoEquacaoGeralReta(reta2.getpSR1(), reta2.getpSR2());
+        System.out.println(eqGR1[0] + ">" + eqGR1[1] + ">" + eqGR1[2]);
+        System.out.println(eqGR2[0] + ">" + eqGR2[1] + ">" + eqGR2[2]);
+        float parteB = ((eqGR1[0] * eqGR2[1]) - (eqGR2[0] * eqGR1[1]));
+        if (parteB == 0) {
+            return "As retas são paralelas";
+        } else {
+            if (doIntersect(reta1, reta2)) {
 
-            float[] eqGR1;
-            float[] eqGR2;
-            eqGR1 = calculoEquacaoGeralReta(reta1.getpSR1(), reta1.getpSR2());
-            eqGR2 = calculoEquacaoGeralReta(reta2.getpSR1(), reta2.getpSR2());
-            System.out.println(eqGR1[0] + ">" + eqGR1[1] + ">" + eqGR1[2]);
-            System.out.println(eqGR2[0] + ">" + eqGR2[1] + ">" + eqGR2[2]);
-            float parteB = ((eqGR1[0] * eqGR2[1]) - (eqGR2[0] * eqGR1[1]));
-            if (parteB == 0) {
-                return "As retas são paralelas";
-            } else {
-                if (doIntersect(reta1, reta2)) {
-
-                    float xp = ((eqGR2[2] * eqGR1[1]) - (eqGR1[2] * eqGR2[1]));
-                    xp = xp / parteB;
-                    float yp = ((eqGR2[0] * eqGR1[2]) - (eqGR1[0]) * eqGR2[2]);
-                    yp = yp / parteB;
-                    Ponto pontoIntersecao = new Ponto();
-                    pontoIntersecao.setX((int) xp);
-                    pontoIntersecao.setY((int) yp);
-                    return "Interseção no  [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]";
-                }
+                float xp = ((eqGR2[2] * eqGR1[1]) - (eqGR1[2] * eqGR2[1]));
+                xp = xp / parteB;
+                float yp = ((eqGR2[0] * eqGR1[2]) - (eqGR1[0]) * eqGR2[2]);
+                yp = yp / parteB;
+                Ponto pontoIntersecao = new Ponto();
+                pontoIntersecao.setX((int) xp);
+                pontoIntersecao.setY((int) yp);
+                return "Interseção no  [" + pontoIntersecao.getX() + "," + pontoIntersecao.getY() + "]";
             }
-            return "Os segmentos não se cruzam";
-
         }
+        return "Os segmentos não se cruzam";
 
-  private  boolean onSegment(Ponto p, Ponto q, Ponto r) {
+    }
+
+    boolean onSegment(Ponto p, Ponto q, Ponto r) {
         if (q.getX() <= Math.max(p.getX(), r.getX()) && q.getX() >= Math.min(p.getX(), r.getX()) &&
                 q.getY() <= Math.max(p.getY(), r.getY()) && q.getY() >= Math.min(p.getY(), r.getY()))
             return true;
@@ -253,18 +245,18 @@ public class Operacoes {
     }
 
 
-    private boolean doIntersect(SegmentoReta reta1, SegmentoReta reta2){
+    boolean doIntersect(SegmentoReta reta1, SegmentoReta reta2) {
         int o1 = orientation(reta1.getpSR1(), reta1.getpSR2(), reta2.getpSR1());
-        int o2 =  orientation(reta1.getpSR1(), reta1.getpSR2(), reta2.getpSR2());
+        int o2 = orientation(reta1.getpSR1(), reta1.getpSR2(), reta2.getpSR2());
         int o3 = orientation(reta2.getpSR1(), reta2.getpSR2(), reta1.getpSR1());
         int o4 = orientation(reta2.getpSR1(), reta2.getpSR2(), reta1.getpSR2());
         if (o1 != o2 && o3 != o4) {
             return true;
         }
-        if (o1 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR1(), reta1.getpSR2())){
+        if (o1 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR1(), reta1.getpSR2())) {
             return true;
         }
-        if (o2 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR2(),  reta1.getpSR2())){
+        if (o2 == 0 && onSegment(reta1.getpSR1(), reta2.getpSR2(), reta1.getpSR2())) {
             return true;
         }
         if (o3 == 0 && onSegment(reta2.getpSR1(), reta1.getpSR1(), reta2.getpSR2())) {
@@ -278,12 +270,11 @@ public class Operacoes {
     }
 
 
-    private int orientation(Ponto p, Ponto q, Ponto r) {
+    int orientation(Ponto p, Ponto q, Ponto r) {
         int val = (q.getY() - p.getY()) * (r.getX() - q.getX()) - (q.getX() - p.getX()) * (r.getY() - q.getY());
-        if (val == 0){
+        if (val == 0) {
             return 0;  // colinear
-        }
-        else if (val>0){
+        } else if (val > 0) {
             return 1;
         }
         return 2;
@@ -292,8 +283,8 @@ public class Operacoes {
 
     /**
      * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
-     *
-     *  Complexidade O(n log n)
+     * <p>
+     * Complexidade O(n log n)
      *
      * @param p
      * @return
@@ -317,9 +308,36 @@ public class Operacoes {
         return v;
     }
 
+    public static SegmentoReta[] retornaVetorSROrdenado(ArrayList<SegmentoReta> p) {
+        SegmentoReta[] v = new SegmentoReta[p.size()];
+        int i = 0;
+        for (SegmentoReta tp : p) {
+            v[i] = tp;
+            i++;
+        }
+
+        MergeSort mS = new MergeSort();
+        return mS.sortX(v, 0, v.length - 1);
+    }
+
+
+    public static Poligono[] retornaVetorPoligonoOrdenado(ArrayList<Poligono> p) {
+        Poligono[] v = new Poligono[p.size()];
+        int i = 0;
+        for (Poligono tp : p) {
+            v[i] = tp;
+            i++;
+        }
+
+        MergeSort mS = new MergeSort();
+        return mS.sortX(v, 0, v.length - 1);
+    }
+
+
     /**
      * Recebe uma Lista de Ponto XY e retorna um Vetor de pontos Ordenados pelo X
      * Complexidade O(n log n)
+     *
      * @param v
      * @return
      */
@@ -337,6 +355,20 @@ public class Operacoes {
         return v;
     }
 
+
+    public static Linha[] retornaVetorLinhaOrdenado(ArrayList<Linha> p) {
+        Linha[] v = new Linha[p.size()];
+        int i = 0;
+        for (Linha tp : p) {
+            v[i] = tp;
+            i++;
+        }
+
+        MergeSort mS = new MergeSort();
+        return mS.sortX(v, 0, v.length - 1);
+    }
+
+
     /**
      * Divide o VEtor de Pontos em dois e Ordena por X e por Y;
      *
@@ -345,7 +377,7 @@ public class Operacoes {
      */
 
     public static Par parMaisProximo(Ponto[] pontos) {
-        Ponto[] pX,pY;
+        Ponto[] pX, pY;
         pX = retornaVetorPontoOrdenado(pontos, 'x');
         pY = retornaVetorPontoOrdenado(pontos, 'y');
         return parMaisProximo(pX, pY);
@@ -377,12 +409,9 @@ public class Operacoes {
     }
 
     /**
-     *
      * Problema do par mais próximo
      * Adaptação do Algoritmo de Shamos-Hoey
      * Algoritmo  Complexidade O(nlog-n) tempo.
-     *
-     * Fonte: https://www.cs.princeton.edu/~rs/AlgsDS07/16Geometric.pdf
      *
      * @param pontosSortedByX
      * @param pontosSortedByY
@@ -462,65 +491,65 @@ public class Operacoes {
      * @return
      */
 
-    public String predicadoQualLadoCirculo(Ponto ponto, Ponto[] pontosCirculo){
+    public String predicadoQualLadoCirculo(Ponto ponto, Ponto[] pontosCirculo) {
 
         int det1 = calculaDet3x3(pontosCirculo[0].getX(), pontosCirculo[0].getY(), 1, pontosCirculo[1].getX(), pontosCirculo[1].getY(), 1, pontosCirculo[2].getX(), pontosCirculo[2].getY(), 1);
-        int det2 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getY(), 1, (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getY(), 1, (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getY(), 1 );
-        int det3 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getX(), 1, (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getX(), 1, (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getX(), 1);
-        int det4 = calculaDet3x3((pontosCirculo[0].getX()*pontosCirculo[0].getX()) + (pontosCirculo[0].getY()*pontosCirculo[0].getY()), pontosCirculo[0].getX(), pontosCirculo[0].getY(), (pontosCirculo[1].getX()*pontosCirculo[1].getX()) + (pontosCirculo[1].getY()*pontosCirculo[1].getY()), pontosCirculo[1].getX(), pontosCirculo[1].getY(), (pontosCirculo[2].getX()*pontosCirculo[2].getX()) + (pontosCirculo[2].getY()*pontosCirculo[2].getY()), pontosCirculo[2].getX(), pontosCirculo[2].getY());
+        int det2 = calculaDet3x3((pontosCirculo[0].getX() * pontosCirculo[0].getX()) + (pontosCirculo[0].getY() * pontosCirculo[0].getY()), pontosCirculo[0].getY(), 1, (pontosCirculo[1].getX() * pontosCirculo[1].getX()) + (pontosCirculo[1].getY() * pontosCirculo[1].getY()), pontosCirculo[1].getY(), 1, (pontosCirculo[2].getX() * pontosCirculo[2].getX()) + (pontosCirculo[2].getY() * pontosCirculo[2].getY()), pontosCirculo[2].getY(), 1);
+        int det3 = calculaDet3x3((pontosCirculo[0].getX() * pontosCirculo[0].getX()) + (pontosCirculo[0].getY() * pontosCirculo[0].getY()), pontosCirculo[0].getX(), 1, (pontosCirculo[1].getX() * pontosCirculo[1].getX()) + (pontosCirculo[1].getY() * pontosCirculo[1].getY()), pontosCirculo[1].getX(), 1, (pontosCirculo[2].getX() * pontosCirculo[2].getX()) + (pontosCirculo[2].getY() * pontosCirculo[2].getY()), pontosCirculo[2].getX(), 1);
+        int det4 = calculaDet3x3((pontosCirculo[0].getX() * pontosCirculo[0].getX()) + (pontosCirculo[0].getY() * pontosCirculo[0].getY()), pontosCirculo[0].getX(), pontosCirculo[0].getY(), (pontosCirculo[1].getX() * pontosCirculo[1].getX()) + (pontosCirculo[1].getY() * pontosCirculo[1].getY()), pontosCirculo[1].getX(), pontosCirculo[1].getY(), (pontosCirculo[2].getX() * pontosCirculo[2].getX()) + (pontosCirculo[2].getY() * pontosCirculo[2].getY()), pontosCirculo[2].getX(), pontosCirculo[2].getY());
 
         double determinante = 0;
 
-        if (((ponto.getX()*ponto.getX()) + (ponto.getY()*ponto.getY())) != 0){
-            determinante = (Math.pow((-1), 2)) * ((ponto.getX()*ponto.getX()) + (ponto.getY()*ponto.getY())) * det1 ;
+        if (((ponto.getX() * ponto.getX()) + (ponto.getY() * ponto.getY())) != 0) {
+            determinante = (Math.pow((-1), 2)) * ((ponto.getX() * ponto.getX()) + (ponto.getY() * ponto.getY())) * det1;
         }
-        if (ponto.getX()!= 0){
-            determinante = determinante +  ((Math.pow(-1,3)) * (ponto.getX()) *det2);
+        if (ponto.getX() != 0) {
+            determinante = determinante + ((Math.pow(-1, 3)) * (ponto.getX()) * det2);
         }
-        if (ponto.getY()!= 0){
-            determinante = determinante + ((Math.pow(-1,4))* ponto.getY() * det3);
+        if (ponto.getY() != 0) {
+            determinante = determinante + ((Math.pow(-1, 4)) * ponto.getY() * det3);
         }
-        determinante = determinante + ((Math.pow(-1,5))*1*det4);
+        determinante = determinante + ((Math.pow(-1, 5)) * 1 * det4);
         int determinante2 = calculaDet3x3(pontosCirculo[0].getX(), pontosCirculo[0].getY(), 1, pontosCirculo[1].getX(), pontosCirculo[1].getY(), 1, pontosCirculo[2].getX(), pontosCirculo[2].getY(), 1);
 
         double resultado = determinante * determinante2;
 
-        if (resultado > 0){
+        if (resultado > 0) {
             return resultado + "Ponto FORA do círculo";
-        }else if (resultado == 0){
+        } else if (resultado == 0) {
             return resultado + "O ponto está na BORDA do círculo";
-        }else{
+        } else {
             return resultado + "O ponto está DENTRO do círculo";
         }
 
     }
 
-    int calculaDet3x3 (int a, int b, int c, int d, int e, int f, int g, int h, int i){
+    int calculaDet3x3(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
         int dir = ((a * e * i) + (b * f * g) + (c * d * h));
         int esq = ((c * e * g) + (a * f * h) + (b * d * i));
-        return dir-esq;
+        return dir - esq;
     }
 
     /**
-     *   Predicado ponto dentro do polígono.
-     *
-     *   Complexidade O(n)
+     * Predicado ponto dentro do polígono.
+     * <p>
+     * Complexidade O(n)
      *
      * @param ponto
      * @param poligono
      * @return
      */
-    public String predicadoPontoDentroPoligono(Ponto ponto, ArrayList<Ponto> poligono){
-        int cruzamentos = 0 ;
+    public String predicadoPontoDentroPoligono(Ponto ponto, ArrayList<Ponto> poligono) {
+        int cruzamentos = 0;
         Ponto p1, p2;
         int x1, x2, y1, y2;
 
         p1 = poligono.get(0);
 
         //Para cada segmento do poligono faça..
-        for (int i = 1 ; i < poligono.size() ; i++){
+        for (int i = 1; i < poligono.size(); i++) {
             //p1 = poligono.get(i);
-            p2= poligono.get(i);
+            p2 = poligono.get(i);
 
 
             x1 = p1.getX() - ponto.getX();
@@ -540,39 +569,37 @@ public class Operacoes {
             p1 = p2;
 
         }
-        System.out.println("quantidade cruzamentos: "+cruzamentos);
+        System.out.println("quantidade cruzamentos: " + cruzamentos);
         if ((cruzamentos % 2) == 1) {
-            return "Quantidade cruzamentos: " +cruzamentos+ "\nO ponto está dentro do poligono";
-        }
-        else{
-            return "Quantidade cruzamentos: " +cruzamentos+ "\nO ponto NÃO está dentro do poligono";
+            return "Quantidade cruzamentos: " + cruzamentos + "\nO ponto está dentro do poligono";
+        } else {
+            return "Quantidade cruzamentos: " + cruzamentos + "\nO ponto NÃO está dentro do poligono";
         }
 
     }
 
     /**
      * Verifica se um Poligono pe convexo
-     *
-     *   Complexidade O(n)
+     * <p>
+     * Complexidade O(n)
      *
      * @param poligono
      * @return
      */
-    public boolean poligonoConvexo(Poligono poligono){
-        if (poligono.getPol().size()< 4){
+    public boolean poligonoConvexo(Poligono poligono) {
+        if (poligono.getPol().size() < 4) {
             return true;
         }
         boolean sign = false;
         int n = poligono.getPol().size();
-        for(int i=0; i<n; i++)
-        {
-            double dx1 = poligono.getPol().get((i+2)%n).getX() - poligono.getPol().get((i+1)%n).getX();
-            double dy1 = poligono.getPol().get((i+2)%n).getY() - poligono.getPol().get((i+1)%n).getY();
+        for (int i = 0; i < n; i++) {
+            double dx1 = poligono.getPol().get((i + 2) % n).getX() - poligono.getPol().get((i + 1) % n).getX();
+            double dy1 = poligono.getPol().get((i + 2) % n).getY() - poligono.getPol().get((i + 1) % n).getY();
 
-            double dx2 = poligono.getPol().get(i).getX() - poligono.getPol().get((i+1)%n).getX();
-            double dy2 = poligono.getPol().get(i).getY() - poligono.getPol().get((i+1)%n).getY();
+            double dx2 = poligono.getPol().get(i).getX() - poligono.getPol().get((i + 1) % n).getX();
+            double dy2 = poligono.getPol().get(i).getY() - poligono.getPol().get((i + 1) % n).getY();
 
-            double produtocruzado = dx1*dy2 - dy1*dx2;
+            double produtocruzado = dx1 * dy2 - dy1 * dx2;
             if (i == 0)
                 sign = produtocruzado > 0;
             else if (sign != (produtocruzado > 0))
@@ -583,30 +610,133 @@ public class Operacoes {
     }
 
     /**
-     *  Algoritimo que Calcula área de um poligono
-     *
-     *   Complexidade n+n = O(n)
+     * Algoritimo que Calcula área de um poligono
+     * <p>
+     * Complexidade n+n = O(n)
      *
      * @param pL
      * @return
      */
-    public double areaPoligono(Poligono pL ){
-        int v1=0,v2=0;
+    public double areaPoligono(Poligono pL) {
+        int v1 = 0, v2 = 0;
         Ponto aux = pL.getPol().get(0);
         ArrayList<Ponto> list = pL.getPol();
         list.add(aux);
 
         //Multiplique a coordenada x de cada vértice pela coordenada y de cada vértice.
-        for (int i = 0; i < list.size()-1 ; i++) {
-            v1 += list.get(i).getX() * list.get(i+1).getY();
+        for (int i = 0; i < list.size() - 1; i++) {
+            v1 += list.get(i).getX() * list.get(i + 1).getY();
         }
 
         //Multiplique a coordenada y de cada vértice pela coordenada x do vértice
-        for (int i = 0; i < list.size()-1 ; i++) {
-            v2 += list.get(i+1).getX() * list.get(i).getY();
+        for (int i = 0; i < list.size() - 1; i++) {
+            v2 += list.get(i + 1).getX() * list.get(i).getY();
         }
-        return (v1-v2)/2;
+        return (v1 - v2) / 2;
+    }
+
+
+    public static boolean buscaB(ArrayList<Poligono> conjPoligono, Poligono chave) {
+        Poligono[] vetorP = retornaVetorPoligonoOrdenado(conjPoligono);
+        return buscaBinariaRecursiva(vetorP, 0, vetorP.length - 1, chave, false);
+
+    }
+
+    private static boolean buscaBinariaRecursiva(Poligono[] array, int menor, int maior, Poligono chave, boolean x) {
+        if (menor < 0) {
+            menor = 0;
+        }
+        if (maior > array.length - 1) {
+            maior = array.length - 1;
+        }
+        int media = (maior + menor) / 2;
+        Poligono valorMeio = array[media];
+        if (menor > maior) {
+            //
+        } else if ((valorMeio.getPol().get(0).getX() == chave.getPol().get(0).getX()) && (valorMeio.getPol().get(0).getY() == chave.getPol().get(0).getY())) {
+            if (encontraIntervalo(array, chave, media)){
+
+                x = true;
+             }
+        } else if ((valorMeio.getPol().get(0).getX() < chave.getPol().get(0).getX())) {
+            //System.out.println("1valor x: "+ x);
+            x = buscaBinariaRecursiva(array, media + 1, maior, chave, x);
+        } else {
+            x = buscaBinariaRecursiva(array, menor, media - 1, chave, x);
+
+        }
+        return x;
+    }
+
+    private static boolean encontraIntervalo(Poligono array[], Poligono chave, int posicao){
+        int intervaloSuperior = posicao;
+        int intervaloInferior = posicao;
+        for (int i = posicao+1 ; i<= array.length-1; i++){
+            if (array[i].getPol().get(0).getX() == chave.getPol().get(0).getX()){
+                intervaloSuperior = i;
+            }
+        }
+        for (int i = posicao-1 ; i>=0; i--){
+            if (array[i].getPol().get(0).getX() == chave.getPol().get(0).getX()){
+                intervaloInferior = i;
+            }
+        }
+       // System.out.println("Intervalo: "+intervaloInferior + " - "+intervaloSuperior);
+
+        if (intervaloSuperior-intervaloInferior == 0){
+            //System.out.println("Entrou aqui");
+            //System.out.println(">>>>"+verificaPoligonosIguais(array[intervaloInferior] , chave));
+            return verificaPoligonosIguais(array[intervaloInferior] , chave);
+        }
+        else{
+            for (int i = intervaloInferior; i<=intervaloSuperior; i++){
+                //System.out.println("Result verifica" + verificaPoligonosIguais(array[i] , chave));
+                if (verificaPoligonosIguais(array[i] , chave)){
+                    return true;
+                }
+            }
+        }
+        //System.out.println("Vai retornar falseeeeeeeeeeeeee");
+        return false;
+
+    }
+
+    private static boolean verificaPoligonosIguais(Poligono poligono, Poligono chave){
+     if (poligono.getPol().size()!=chave.getPol().size()){
+         return false;
+     }
+    Ponto[] vetorP = new Ponto[poligono.getPol().size()];
+        int i = 0;
+        for (Ponto p : poligono.getPol()) {
+            vetorP[i] = p;
+            i++;
+        }
+
+        Ponto[] vetorC = new Ponto[chave.getPol().size()];
+        int j = 0;
+        for (Ponto p : chave.getPol()) {
+            vetorC[j] = p;
+            j++;
+        }
+
+        for (i = 1 ; i <= vetorP.length-1; i++){
+            if ((vetorP[i].getX()== vetorC[i].getX()) && (vetorP[i].getY()== vetorC[i].getY())){
+            }
+            else {
+                System.out.println("Entrou no false");
+                return false;
+            }
+        }
+        return true;
+
+
+
+
+
     }
 
 
 }
+
+
+

@@ -47,9 +47,23 @@ public class Ponto implements Serializable{
     }
 
 
+    public int compareTo(Ponto other) {
+        if (this.y == other.y) {
+            if (this.x == other.x) return 0;
+            else if (this.x > other.x) return 1;
+            else return -1;
+        }
+        else if (this.y > other.y) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+
     public String toString()
     {
-        return "Point[x=" + x + ",y=" + y + "]";
+        return " (" + x + ", " + y + ")";
     }
 
 

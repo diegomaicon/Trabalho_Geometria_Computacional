@@ -28,7 +28,7 @@ public class ManiputationConjunto {
 
     private static Operacoes operacoes;
 
-    /*************************   TAD PONTOS   **************************************************************************************/
+    //TAD PONTOS
 
     /**
      * Acrescenta o elemento especificado ao final desta lista de Pontos.
@@ -203,10 +203,9 @@ public class ManiputationConjunto {
     }
 
 
-    /************************* TAD SEGMENTO DE RETA  **************************************************************************************/
 
 
-
+    //TAD SEGMENTO DE RETA
     /**
      * Acrescenta o elemento especificado ao final desta lista de Segmentos de Reta.
      *
@@ -331,11 +330,37 @@ public class ManiputationConjunto {
         return aux;
     }
 
+    /**
+     *  Retorna o Min pelo eixo X
+     *
+     * @param conjunto
+     * @return
+     */
+    public static SegmentoReta minSRX1(ArrayList<SegmentoReta> conjunto) {
+        SegmentoReta[] vetor = operacoes.retornaVetorSROrdenado(conjunto);
+        return vetor[0];
+    }
 
-    /*************************  TAD LINHA  **************************************************************************************/
+    public static ArrayList<ArrayList<SegmentoReta>> splitSR(ArrayList<SegmentoReta> conjSR, int u){
+        ArrayList<SegmentoReta> s1 = new ArrayList<SegmentoReta>();
+        ArrayList<SegmentoReta> s2 = new ArrayList<SegmentoReta>();
+        int i=1;
+        SegmentoReta[] conj = operacoes.retornaVetorSROrdenado(conjSR);
+        for (i=0 ; i<conj.length; i++){
+            if (i <= u ){
+                s1.add(conj[i]);
+            }else{
+                s2.add(conj[i]);
+            }
+        }
+        ArrayList<ArrayList<SegmentoReta>> ConjConj = new ArrayList<ArrayList<SegmentoReta>>();
+        ConjConj.add(s1);
+        ConjConj.add(s2);
+        return ConjConj;
+    }
 
 
-
+    // TAD LINHA
     /**
      * Acrescenta o elemento especificado ao final desta lista de Linhas
      *
@@ -459,10 +484,37 @@ public class ManiputationConjunto {
         return aux;
     }
 
+    public static Linha minLinhaX1(ArrayList<Linha> conjunto) {
+        Linha[] vetor = operacoes.retornaVetorLinhaOrdenado(conjunto);
+        return vetor[0];
+    }
+
+    public static ArrayList<ArrayList<Linha>> splitLinha(ArrayList<Linha> conjLinha, int u){
+        ArrayList<Linha> s1 = new ArrayList<Linha>();
+        ArrayList<Linha> s2 = new ArrayList<Linha>();
+        int i=1;
+        Linha[] conj = operacoes.retornaVetorLinhaOrdenado(conjLinha);
+        for (i=0 ; i<conj.length; i++){
+            if (i <= u ){
+                s1.add(conj[i]);
+            }else{
+                s2.add(conj[i]);
+            }
+        }
+        ArrayList<ArrayList<Linha>> ConjConj = new ArrayList<ArrayList<Linha>>();
+        ConjConj.add(s1);
+        ConjConj.add(s2);
+        return ConjConj;
+    }
 
 
 
-    /****************************************  TAD POLIGONOS   **************************************************************************************/
+
+
+
+
+
+    //TAD POLIGONOS
 
     /**
      * Acrescenta o elemento especificado ao final desta lista de Poligonos
@@ -485,11 +537,59 @@ public class ManiputationConjunto {
      * @param A
      * @return
      */
-    public static ArrayList<Poligono> concatenateP(ArrayList<Poligono> S,ArrayList<Poligono> A) {
+    public static ArrayList<Poligono> concatenateP(ArrayList<Poligono> S,ArrayList<Poligono> A){
         ArrayList<Poligono> aux = new ArrayList<Poligono>();
         aux.addAll(S);
         aux.addAll(A);
         return aux;
+    }
+
+    public static Poligono minPoligonoP1X(ArrayList<Poligono> conjunto) {
+        Poligono[] vetor = operacoes.retornaVetorPoligonoOrdenado(conjunto);
+        return vetor[0];
+    }
+
+    public static ArrayList<ArrayList<Poligono>> splitPoligono(ArrayList<Poligono> conjPoligono, int u){
+        ArrayList<Poligono> s1 = new ArrayList<Poligono>();
+        ArrayList<Poligono> s2 = new ArrayList<Poligono>();
+        int i=1;
+        Poligono[] conj = operacoes.retornaVetorPoligonoOrdenado(conjPoligono);
+        for (i=0 ; i<conj.length; i++){
+            if (i <= u ){
+                s1.add(conj[i]);
+            }else{
+                s2.add(conj[i]);
+            }
+        }
+        ArrayList<ArrayList<Poligono>> ConjConj = new ArrayList<ArrayList<Poligono>>();
+        ConjConj.add(s1);
+        ConjConj.add(s2);
+        return ConjConj;
+    }
+
+    public static boolean member(ArrayList<Poligono> conjPoligono, Poligono elemento) {
+        return operacoes.buscaB(conjPoligono, elemento);
+    }
+
+    public static ArrayList<Poligono> unionPoligono(ArrayList<Poligono> Conj1, ArrayList<Poligono> Conj2) {
+        ArrayList<Poligono> novoConj = new ArrayList<Poligono>();
+        novoConj = Conj1;
+        for (Poligono p : Conj2) {
+            if (!member(Conj1, p)) {
+                novoConj.add(p);
+            }
+        }
+        return novoConj;
+    }
+
+    public static ArrayList<Poligono> intersectionPoligono(ArrayList<Poligono> Conj1, ArrayList<Poligono> Conj2) {
+        ArrayList<Poligono> novo = new ArrayList<Poligono>();
+        for (Poligono p : Conj2) {
+            if (member(Conj1, p)) {
+                novo.add(p);
+            }
+        }
+        return novo;
     }
 
 

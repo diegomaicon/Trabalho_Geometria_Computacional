@@ -1,5 +1,6 @@
 package plot;
 
+import libs.voronoi.Aresta;
 import modelo.Par;
 import modelo.Ponto;
 import modelo.SegmentoReta;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class GravaArquivo {
 
 
-    public static void GravaPontos(ArrayList<Ponto> pontos,ArrayList<Ponto> fecho) {
+    public static void GravaPontos(ArrayList<Ponto> pontos, ArrayList<Ponto> fecho) {
 
         try {
 
@@ -36,13 +37,34 @@ public class GravaArquivo {
 
             }
 
-
             arq.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public static void GravaPontosV(ArrayList<Ponto> pontos, ArrayList<Aresta> arestas) {
+
+        try {
+
+            FileWriter arq = new FileWriter("dados-plot.txt");
+            PrintWriter gravarArq = new PrintWriter(arq);
+            gravarArq.printf("x\ty\tsX\tsy\teX\tey\n");
+            for (int i = 0; i <  arestas.size() ; i++) {
+                if(i < pontos.size()) {
+                    gravarArq.print(pontos.get(i).getX() + "\t" + pontos.get(i).getY() + "\t" + arestas.get(i).getStart().getX() + "\t" + arestas.get(i).getStart().getY() + "\t"+ arestas.get(i).getEnd().getX() + "\t" + arestas.get(i).getEnd().getY() + "\n");
+                }else  {
+                    gravarArq.print("" + "\t" + "" + "\t" + arestas.get(i).getStart().getX() + "\t" + arestas.get(i).getStart().getY() + "\t"+ arestas.get(i).getEnd().getX() + "\t" + arestas.get(i).getEnd().getY() + "\n");
+
+                }
+
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void GravaPontos(ArrayList<Ponto> pontos) {
 

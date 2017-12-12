@@ -29,6 +29,7 @@ import java.io.PrintWriter;
         private static final int POLIGONOPONTO = 7;
         private static final int PONTOS_PONTO_RETA = 8;
         private static final int POLIGONO = 9;
+        private static final int VORONOI = 10;
 
         private static void exec(String[] comando) {
             try {
@@ -226,6 +227,26 @@ import java.io.PrintWriter;
                         "exit"
                 };
 
+                GnuPlotComandos.exec(scriptPontos);
+            }else if (FILTRO == VORONOI) {
+                String[] scriptPontos = {
+                        "set terminal pngcairo transparent size 800, 600 \n",
+                        "set view map\n",
+
+                        "set dgrid2d 600, 600, 2\n",
+                        "set size 1,1",
+                        "set xlabel \"eixo X\"",
+                        "set ylabel \"eixo Y\"",
+                        "set xrange [-15:15]\n",
+                        "set yrange [-15:15]\n",
+                        "set grid \n",
+                        "set output 'plano.png'\n",
+
+                        "plot \"dados-plot.txt\"  u 1:2 with p lt 10 pt 7   ps 1 title \"Pontos\",\"dados-plot.txt\"  u 3:4 with lp lt 4 pt 7 lw 1  ps 1 t\"Diagrama Voronoi\"" + "\n",
+                        "exit"
+
+                };
+                System.out.println("pronto");
                 GnuPlotComandos.exec(scriptPontos);
             }
         }

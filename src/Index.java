@@ -1,7 +1,8 @@
 import libs.AlgGraham;
 import libs.EstrategiasPA;
-import libs.Operacoes;
 import libs.ManiputationConjunto;
+import libs.Operacoes;
+import libs.voronoi.Voronoi;
 import modelo.*;
 import plot.GnuPlotComandos;
 import plot.Graphic;
@@ -33,8 +34,8 @@ public class Index {
     private static ArrayList<Ponto> carregaPontos() {
 
         Ponto p1 = new Ponto(1, 3);
-        Ponto p2 = new Ponto(3, 3);
-        Ponto p3 = new Ponto(5, 3);
+        Ponto p2 = new Ponto(3, 2);
+        Ponto p3 = new Ponto(5, 9);
         Ponto p7 = new Ponto(1, 5);
         Ponto p8 = new Ponto(4, 1);
         Ponto p9 = new Ponto(5, 5);
@@ -54,10 +55,10 @@ public class Index {
       //  conjuntoPontos.add(p4);
         // conjuntoPontos.add(p5);
         //conjuntoPontos.add(p6);
-        conjuntoPontos.add(p7);
-        conjuntoPontos.add(p8);
-        conjuntoPontos.add(p9);
-        conjuntoPontos.add(p10);
+     //   conjuntoPontos.add(p7);
+       // conjuntoPontos.add(p8);
+        //conjuntoPontos.add(p9);
+        //conjuntoPontos.add(p10);
 
         return conjuntoPontos;
     }
@@ -479,7 +480,17 @@ public class Index {
 
                     conjuntoPontos.clear();
                     break;
+                case 14:
+                    Voronoi diagram = new Voronoi (carregaPontos());
 
+                    GravaArquivo.GravaPontosV(carregaPontos(),  diagram.getArestas());
+                    plotComandos.plot(10);
+
+                    grafico = new Graphic();
+                    grafico.setVisible(true);
+
+
+                    break;
                 case 15:
                     int[] moedas = EstrategiasPA.gulosoProblemaTroco(Float.parseFloat(JOptionPane.showInputDialog(null, "Informe o Valor Troco  0.00")));
                     int cont = 0;
