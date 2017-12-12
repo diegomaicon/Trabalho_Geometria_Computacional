@@ -3,6 +3,9 @@ package libs.voronoi;
 import modelo.Ponto;
 
 /**
+ *
+ *  Arvore binaria balanceada T (arcos sao folhas,pontos de parada sao nodos
+ *
  *  Representa a linha da praia
  *  pode ser um locais que é o centro de uma parábola
  *  ou pode ser um vértice que divide dois locais

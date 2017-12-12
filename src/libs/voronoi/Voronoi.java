@@ -23,6 +23,17 @@ import java.util.PriorityQueue;
  	no diagrama de Voronoi é igual ao número de sites N, de modo que o número máximo de vértices em
  	qualquer face será um múltiplo de N), o tempo de execução geral do algoritmo é O (n log n).
 
+ O algoritmo roda em O(nlogn) e usa O(n) de memoria
+ 	• Classificacao em Y: O(nlogn)
+ 	• Estrutura de dados
+ 	• Operacoes em T: O(logn)
+ 	• Operacoes na lista de aresta: constante
+ 	• Operacoes na fila de eventos: O(logn)
+ 	• Operacoes em eventos: constante
+ 	• Custo de um evento: O(logn)
+	• n eventos de sitio
+ 	• numero de eventos de circulo: 2n-5 no maximo
+
  */
 public class Voronoi {
 
@@ -110,8 +121,13 @@ public class Voronoi {
 	}
 
 	/**
-	 * Processa evento  do Local
+	 * Buscar em T o arco a verticalmente acima de pi, e deletar todos eventos
+	   de circulo associados a ele (ponteiros para a priority queue)
 	 *
+	 *
+	 * Trocar a folha pj que representa p em T representando a por tres folhas.
+	   A folha do meio contem o sitio pi, e as outras duas contem pj.
+	 	Atualizar os nodos com <pj,pi> e <pi,pj>.Rebalancear !
 	 * @param p
 	 */
 	private void handleSite(Ponto p) {
