@@ -34,6 +34,9 @@ import java.util.PriorityQueue;
 	• n eventos de sitio
  	• numero de eventos de circulo: 2n-5 no maximo
 
+
+ 	Fonte:  http://www.inf.ufrgs.br/~comba/cmp189-files/class07.pdf
+
  */
 public class Voronoi {
 

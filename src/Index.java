@@ -244,7 +244,7 @@ public class Index {
 
                     " ok [ 12 ]  Problema do par mais próximo.\n" +
                     " ok [ 13 ]  Problema do fecho convexo.\n" +
-                    " --- [ 14 ]  Diagrama de Voronoi.\n\n" +
+                    " ok [ 14 ]  Diagrama de Voronoi.\n\n" +
 
                     " ----- Estratégias de Projeto de Algoritmos.\n" +
                     " ok [ 15 ]  Guloso - Problema do Troco.\n" +
